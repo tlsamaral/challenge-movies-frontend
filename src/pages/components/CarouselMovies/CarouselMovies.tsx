@@ -1,18 +1,20 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import type { MovieInfo } from '@/types/movies'
 import { useRef, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import type { Swiper as SwiperType } from 'swiper'
 import { FreeMode, Pagination } from 'swiper/modules'
 import { BorderWithRadio } from '../BorderWithRadio/style'
-import { PreviewMovie } from '../PreviewMovie/styled'
+import PreviewMovie from '../PreviewMovie/PreviewMovie'
 import { CarouselMoviesSection, ControlArea, Title } from './style'
 
 interface CarouselMoviesProps {
   title: string
+  listMovies: MovieInfo[]
 }
-function CarouselMovies({ title }: CarouselMoviesProps) {
+function CarouselMovies({ title, listMovies }: CarouselMoviesProps) {
   const swiperRef = useRef<SwiperType | null>(null)
   const [isBeginning, setIsBeginning] = useState(true)
   const [isEnd, setIsEnd] = useState(false)
@@ -72,9 +74,9 @@ function CarouselMovies({ title }: CarouselMoviesProps) {
           setIsEnd(swiper.isEnd)
         }}
       >
-        {Array.from({ length: 10 }).map((item, i) => (
-          <SwiperSlide key={i}>
-            <PreviewMovie />
+        {listMovies?.map((movie) => (
+          <SwiperSlide key={movie.id}>
+            <PreviewMovie movie={movie} />
           </SwiperSlide>
         ))}
       </Swiper>
