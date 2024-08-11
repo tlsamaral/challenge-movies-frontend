@@ -3,8 +3,8 @@ interface PreviewMovieProps {
   bannerImg?: string
 }
 export const PreviewMovie = styled.article<PreviewMovieProps>`
-    min-width: 380px;
-    max-width: 100%;
+    width: 100%;
+    max-width: 380px;
     height: 253.67px;
     border-radius: 24px;
     padding: 12px;
