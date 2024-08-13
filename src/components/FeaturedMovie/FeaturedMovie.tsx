@@ -17,27 +17,27 @@ interface FeaturedMovieProps {
 }
 function FeaturedMovie({ movie }: FeaturedMovieProps) {
   return (
-    <BannerTopOne bannerImg={movie.big_image}>
+    <BannerTopOne bannerImg={movie.node.primaryImage.url}>
       <Main>
         <MainContent>
           <Button>
             <FaFire color="#fff" />
             Em destaque{' '}
           </Button>
-          <Title>{movie.title}</Title>
+          <Title>{movie.node.titleText.text}</Title>
           <InfoSection>
             <Rating>
               <FaStar color="#F0E635" size={16} />
-              <span>{movie.rating}</span>
+              <span>{movie.node.ratingsSummary.aggregateRating}</span>
               <small>| 120 mil</small>
             </Rating>
             <MoreInfo>
               <li>2h 8m</li>
               <li>Comedy, Action, Adventure, Superhero...</li>
-              <li>{movie.year}</li>
+              <li>{movie.node.releaseYear.year}</li>
             </MoreInfo>
           </InfoSection>
-          <Description>{movie.description}</Description>
+          <Description>{movie.node.plot.plotText.plainText}</Description>
         </MainContent>
         <Button>
           Assistir ao Trailer <FaPlay color="#fff" />

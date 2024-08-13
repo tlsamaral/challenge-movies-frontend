@@ -13,14 +13,14 @@ interface PreviewMovieProps {
 }
 function PreviewMovie({ movie }: PreviewMovieProps) {
   return (
-    <PreviewMovieContainer bannerImg={movie.image}>
+    <PreviewMovieContainer bannerImg={movie.node.primaryImage.url}>
       <PreviewArea>
         <PreviewRating>
           <FaStar color="#F0E635" size={20} />
           7.1
         </PreviewRating>
         <div>
-          <Title>{movie.title}</Title>
+          <Title>{movie.node.titleText.text}</Title>
           <Button>
             Assistir ao Trailer <FaPlay color="#fff" />
           </Button>

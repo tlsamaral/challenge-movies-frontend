@@ -1,7 +1,5 @@
 import type { MovieInfo } from '@/types/movies'
-import { FaFire, FaPlay, FaStar } from 'react-icons/fa'
 import BorderWithRadio from '../BorderWithRadio/BorderWithRadio'
-import Button from '../Button/Button'
 import FeaturedMovie from '../FeaturedMovie/FeaturedMovie'
 import PreviewMovie from '../PreviewMovie/PreviewMovie'
 import { InitialContainer, PreviewMovieWrapper, Title } from './style'
@@ -20,7 +18,7 @@ function FirstComponent({ mainMovie, otherMovies }: FirsComponentProps) {
           <BorderWithRadio /> Destaques também
         </Title>
         {otherMovies.map((movie) => (
-          <PreviewMovie key={movie.id} movie={movie} />
+          <PreviewMovie key={movie.node.id} movie={movie} />
         ))}
       </PreviewMovieWrapper>
     </InitialContainer>

@@ -1,4 +1,4 @@
-import type { MovieInfo } from '@/types/movies'
+import type { MovieDataAll, MovieInfo } from '@/types/movies'
 import axios from 'axios'
 import type { GetServerSideProps } from 'next'
 import { useEffect, useState } from 'react'
@@ -20,10 +20,14 @@ export default function Home({ initialMovies }: HomeProps) {
     setIsLoading(false)
   }, [])
 
-  const mainMovie = movies?.length > 0 ? (movies.shift() as MovieInfo) : null
+  const mainMovie = movies.shift()
   const otherMovies = movies?.slice(0, 3)
   const latestMovies = movies
-    ? movies.sort((a, b) => (a.year < b.year ? 1 : -1)).slice(0, 15)
+    ? movies
+        .sort((a, b) =>
+          a.node.releaseYear.year < b.node.releaseYear.year ? 1 : -1,
+        )
+        .slice(0, 15)
     : []
   const sortMovies = movies?.sort(() => Math.random() - 0.5).slice(0, 35)
 
@@ -49,23 +53,47 @@ export default function Home({ initialMovies }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const options = {
+  // const options = {
+  //   method: 'GET',
+  //   url: 'https://imdb-top-100-movies.p.rapidapi.com/',
+  //   headers: {
+  //     'x-rapidapi-key': '575c925fb8mshca0b3947edf1ae3p1447e2jsn2c38e4393425',
+  //     'x-rapidapi-host': 'imdb-top-100-movies.p.rapidapi.com',
+  //   },
+  // }
+
+  // let movies: Movies = []
+
+  // try {
+  //   const response = await axios.request<Movies>(options)
+  //   movies = response.data
+  // } catch (error) {
+  //   console.error(error)
+  // }
+
+  const options2 = {
     method: 'GET',
-    url: 'https://imdb-top-100-movies.p.rapidapi.com/',
+    url: 'https://online-movie-database.p.rapidapi.com/title/v2/get-popular',
+    params: {
+      first: '20',
+      country: 'US',
+      language: 'en-US',
+    },
     headers: {
       'x-rapidapi-key': '575c925fb8mshca0b3947edf1ae3p1447e2jsn2c38e4393425',
-      'x-rapidapi-host': 'imdb-top-100-movies.p.rapidapi.com',
+      'x-rapidapi-host': 'online-movie-database.p.rapidapi.com',
     },
   }
 
-  let movies: Movies = []
-
+  let moviesResponse: MovieDataAll | null = null
   try {
-    const response = await axios.request<Movies>(options)
-    movies = response.data
+    const response = await axios.request<MovieDataAll>(options2)
+    moviesResponse = response.data
   } catch (error) {
     console.error(error)
   }
+
+  const movies = moviesResponse?.data.movies.edges ?? []
 
   return {
     props: {
