@@ -18,12 +18,14 @@ interface PictureProps {
 }
 export const Picture = styled.div<PictureProps>`
     height: 88px;
-    width: 64px;
+    min-width: 64px;
+    min-width: 64px;
     border-radius: 16px;
     border: 2px solid #3a3a3a;
     background-image: url(${(props) => props.src});
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
 `
 export const Content = styled.div`
     display: flex;

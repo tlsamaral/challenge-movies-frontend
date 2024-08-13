@@ -112,4 +112,14 @@ export const TextResult = styled.small`
     text-align: left;
     color: #eee;
 `
+
+export const Text = styled.span`
+  font-family: Inter;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 14.52px;
+    text-align: left;
+    color: #eee;
+`
+
 export const SearchCardWrapper = styled.div``

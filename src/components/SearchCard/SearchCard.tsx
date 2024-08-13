@@ -1,3 +1,4 @@
+import type { MoviesFiltered } from '@/types/movie-filtered'
 import {
   ContainerTitle,
   Content,
@@ -7,16 +8,20 @@ import {
   Title,
 } from './style'
 
-function SearchCard() {
+interface SearchCardProps {
+  movie: MoviesFiltered
+}
+
+function SearchCard({ movie }: SearchCardProps) {
   return (
     <SearchCardContainer>
-      <Picture src="/main-banner.png">teste</Picture>
+      <Picture src={movie.i?.imageUrl ?? ''} />
       <Content>
         <ContainerTitle>
-          <Title>Titulo</Title>
+          <Title>{movie.l}</Title>
         </ContainerTitle>
-        <Text>teste</Text>
-        <Text>teste</Text>
+        <Text>{movie.s}</Text>
+        <Text>{movie.y}</Text>
       </Content>
     </SearchCardContainer>
   )
