@@ -2,9 +2,9 @@ import type { MovieInfo } from '@/types/movies'
 import axios from 'axios'
 import type { GetServerSideProps } from 'next'
 import { useEffect, useState } from 'react'
-import CarouselMovies from './components/CarouselMovies/CarouselMovies'
-import FirstComponent from './components/FirstComponent/FirstComponent'
-import Header from './components/Header/Header'
+import CarouselMovies from '../components/CarouselMovies/CarouselMovies'
+import FirstComponent from '../components/FirstComponent/FirstComponent'
+import Header from '../components/Header/Header'
 
 export type Movies = MovieInfo[]
 
