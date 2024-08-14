@@ -19,7 +19,7 @@ function PreviewMovie({ movie }: PreviewMovieProps) {
       <PreviewArea>
         <PreviewRating>
           <FaStar color="#F0E635" size={20} />
-          7.1
+          {movie.node.ratingsSummary.aggregateRating || 5.5}
         </PreviewRating>
         <div>
           <Title>{movie.node.titleText.text}</Title>

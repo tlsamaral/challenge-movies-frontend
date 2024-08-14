@@ -68,7 +68,7 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
             listMovies={latestMovies}
           />
           <CarouselMovies title="Recomendados" listMovies={sortMovies} />
-          <CarouselActors title="Celebridades " listActors={actors} />
+          <CarouselActors title="Celebridades" listActors={actors} />
         </>
       )}
       <Footer />
