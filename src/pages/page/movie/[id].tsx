@@ -38,7 +38,6 @@ export default function MoviePage() {
   function getSimilarMovies(selectedMovie: MovieInfo, movies: MovieInfo[]): MovieInfo[] {
     if (!selectedMovie) return []
   
-    // Normaliza o texto para evitar distinção entre maiúsculas e minúsculas
     const normalizeText = (text: string) => text.toLowerCase().trim()
   
     const selectedTitle = normalizeText(selectedMovie.node.titleText.text)
