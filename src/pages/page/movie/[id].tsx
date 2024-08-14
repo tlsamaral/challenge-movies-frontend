@@ -22,14 +22,12 @@ import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import { AppContext } from '@/context/AppContext'
 import CarouselCredits from '@/components/CarouselCredits/CarouselCredits'
-import { MoviesFiltered } from '@/types/movie-filtered'
 import CarouselMovies from '@/components/CarouselMovies/CarouselMovies'
 import { MovieInfo } from '@/types/movies'
 
 export default function MoviePage() {
-  const { handleSelectedMovie, selectedMovie, getMoviesBySearch, movies } = useContext(AppContext)
+  const { handleSelectedMovie, selectedMovie, getMoviesBySearch, movies, isLoading, setIsLoading } = useContext(AppContext)
   const [similarMovies, setSimilarMovies] = useState<MovieInfo[]>([])
-  const [loading, setLoading] = useState(true)
   const router = useRouter()
   const movieId = router.query.id as string
   const principalCredits = selectedMovie?.node.principalCredits.map(c => c.credits.map(cr => cr.name))
@@ -69,7 +67,7 @@ export default function MoviePage() {
       } catch (error) {
         console.error('Error fetching data:', error)
       } finally {
-        setLoading(false)
+        setIsLoading(false)
       }
     }
 
@@ -78,7 +76,7 @@ export default function MoviePage() {
   
   return (
     <MoviePageContainer>
-      {loading ? (<span>Loading...</span>) : (
+      {isLoading ? (<span>Loading...</span>) : (
         <>
           <Banner $bannerImg={selectedMovie?.node.primaryImage.url || ''}>
             <Button>

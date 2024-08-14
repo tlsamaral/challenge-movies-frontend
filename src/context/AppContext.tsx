@@ -15,6 +15,8 @@ interface AppContextData {
     handleSelectedMovie: (movie_id: MovieInfo['node']['id']) => void
     setSelectedActor: (actor: ActorsNode | null) => void
     getMoviesBySearch: (search: string) => Promise<MoviesFiltered[]>
+    isLoading: boolean
+    setIsLoading: Dispatch<SetStateAction<boolean>>
 }
 export const AppContext = createContext({} as AppContextData)
 
@@ -27,6 +29,7 @@ function AppProviderComponent({ children }: AppProviderProps) {
     const [actors, setActors] = useState<ActorNames>([])
     const [selectedMovie, setSelectedMovie] = useState<MovieInfo | null>(null)
     const [selectedActor, setSelectedActor] = useState<ActorsNode | null>(null)
+    const [isLoading, setIsLoading] = useState(true)
 
     const handleSelectedMovie = (movie_id: MovieInfo['node']['id']) => {
         const selectMovie = movies.find((movie) => movie.node.id === movie_id) as MovieInfo
@@ -61,8 +64,10 @@ function AppProviderComponent({ children }: AppProviderProps) {
         selectedActor, 
         handleSelectedMovie,
         setSelectedActor,
-        getMoviesBySearch
-    }), [movies, actors, selectedMovie, selectedActor])
+        getMoviesBySearch,
+        isLoading, 
+        setIsLoading
+    }), [movies, actors, selectedMovie, selectedActor, isLoading])
 
     return (
         <AppContext.Provider value={value}>

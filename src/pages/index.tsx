@@ -21,8 +21,7 @@ interface HomeProps {
 }
 
 export default function Home({ initialMovies, initialActors }: HomeProps) {
-  const { movies, actors, setMovies, setActors } = useContext(AppContext)
-  const [isLoading, setIsLoading] = useState(true)
+  const { movies, actors, setMovies, setActors, isLoading, setIsLoading } = useContext(AppContext)
 
   useEffect(() => {
     const fetchData = async () => {
