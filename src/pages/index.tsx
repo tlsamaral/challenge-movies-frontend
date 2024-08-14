@@ -42,7 +42,11 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
     fetchData()
   }, [movies, actors, initialMovies, initialActors, setMovies, setActors])
 
-  const mainMovie = movies?.[0]
+  const mainMovie = movies?.reduce((highestRated, currentMovie) => {
+      return (currentMovie.node.ratingsSummary.aggregateRating || 5.5) > (highestRated.node.ratingsSummary.aggregateRating || 5.5)
+      ? currentMovie 
+      : highestRated;
+  }, movies[0]);
   const otherMovies = movies?.slice(1, 4)
   const latestMovies = movies
     ? movies
