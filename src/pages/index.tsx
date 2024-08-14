@@ -34,7 +34,6 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
         const fetchedActors = initialActors || await fetchPopularActors()
         setActors(fetchedActors)
       }
-
       setIsLoading(false)
     }
 
