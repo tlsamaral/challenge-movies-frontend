@@ -17,7 +17,7 @@ interface FeaturedMovieProps {
 }
 function FeaturedMovie({ movie }: FeaturedMovieProps) {
   return (
-    <BannerTopOne bannerImg={movie.node.primaryImage.url}>
+    <BannerTopOne $bannerImg={movie.node.primaryImage.url}>
       <Main>
         <MainContent>
           <Button>

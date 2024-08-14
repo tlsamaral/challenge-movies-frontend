@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 interface PreviewMovieProps {
-  bannerImg?: string
+  $bannerImg?: string
 }
 export const PreviewMovie = styled.article<PreviewMovieProps>`
     width: 100%;
@@ -9,7 +9,7 @@ export const PreviewMovie = styled.article<PreviewMovieProps>`
     border-radius: 24px;
     padding: 12px;
     position: relative;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), ${(props) => `url(${props?.bannerImg})`};
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), ${(props) => `url(${props?.$bannerImg})`};
     
     background-repeat: no-repeat;
     background-size: cover;

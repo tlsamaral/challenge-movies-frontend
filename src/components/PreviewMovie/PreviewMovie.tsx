@@ -15,7 +15,7 @@ interface PreviewMovieProps {
 function PreviewMovie({ movie }: PreviewMovieProps) {
   return (
     <RouteComponent path={`/page/movie/${movie.node.id}`} >
-    <PreviewMovieContainer bannerImg={movie.node.primaryImage.url}>
+    <PreviewMovieContainer $bannerImg={movie.node.primaryImage.url}>
       <PreviewArea>
         <PreviewRating>
           <FaStar color="#F0E635" size={20} />
