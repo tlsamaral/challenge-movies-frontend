@@ -3,10 +3,9 @@ import type {
   MoviesFilteredResponse,
 } from '@/types/movie-filtered'
 import axios from 'axios'
-import { Span } from 'next/dist/trace'
 import Image from 'next/image'
 import { type ChangeEvent, useEffect, useState } from 'react'
-import { FiSearch, FiSettings } from 'react-icons/fi'
+import { FiSearch } from 'react-icons/fi'
 import { LuSlidersHorizontal } from 'react-icons/lu'
 import ContentOverlay from '../ContentOverlay/ContentOverlay'
 import SearchCard from '../SearchCard/SearchCard'

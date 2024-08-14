@@ -8,6 +8,7 @@ import { fetchPopularMovies } from '@/data/movies'
 import { fetchPopularActors } from '@/data/actors'
 import { ActorsNode } from '@/types/actors'
 import CarouselActors from '@/components/CarouselActor/CarouselActor'
+import Footer from '@/components/Footer/Footer'
 
 export type Movies = MovieInfo[]
 export type ActorNames = ActorsNode[]
@@ -56,6 +57,7 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
           <CarouselActors title="Celebridades " listActors={initialActors} />
         </>
       )}
+      <Footer />
     </>
   )
 }
