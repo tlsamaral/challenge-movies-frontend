@@ -10,6 +10,7 @@ import { ActorsNode } from '@/types/actors'
 import CarouselActors from '@/components/CarouselActor/CarouselActor'
 import Footer from '@/components/Footer/Footer'
 import { AppContext } from '@/context/AppContext'
+import { ContainerApp } from '@/styles'
 
 export type Movies = MovieInfo[]
 export type ActorNames = ActorsNode[]
@@ -53,7 +54,7 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
   const sortMovies = movies?.sort(() => Math.random() - 0.5).slice(0, 35)
 
   return (
-    <>
+    <ContainerApp>
       <Header />
       {isLoading ? (
         <p>Loading...</p>
@@ -71,6 +72,6 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
         </>
       )}
       <Footer />
-    </>
+    </ContainerApp>
   )
 }
