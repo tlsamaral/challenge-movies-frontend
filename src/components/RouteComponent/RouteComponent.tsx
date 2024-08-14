@@ -7,7 +7,7 @@ interface RouteComponentProps {
 }
 export default function RouteComponent({ children, path }: RouteComponentProps ) {
     return (
-        <Link href={path} >
+        <Link href={path} style={{ textDecoration: 'none', color: 'inherit' }}>
             {children}
         </Link>
     )
