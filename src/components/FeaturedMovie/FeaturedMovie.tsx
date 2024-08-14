@@ -33,7 +33,13 @@ function FeaturedMovie({ movie }: FeaturedMovieProps) {
             </Rating>
             <MoreInfo>
               <li>2h 8m</li>
-              <li>Comedy, Action, Adventure, Superhero...</li>
+              <li>
+                {movie.node.titleGenres.genres.length >= 3 ? (
+                  movie.node.titleGenres.genres.slice(0, 3).map((genre) => genre.genre.text).join(', ') + '...'
+                ) : (
+                  movie.node.titleGenres.genres.map((genre) => genre.genre.text)
+                )}
+              </li>
               <li>{movie.node.releaseYear.year}</li>
             </MoreInfo>
           </InfoSection>
