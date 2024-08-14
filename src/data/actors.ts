@@ -11,7 +11,7 @@ export const fetchPopularActors = async () => {
       language: 'en-US'
     },
     headers: {
-      'x-rapidapi-key': '575c925fb8mshca0b3947edf1ae3p1447e2jsn2c38e4393425',
+      'x-rapidapi-key': 'e2259ddd29msh8b738d3dbdf343fp1f5306jsndb3ee7a50307',
       'x-rapidapi-host': 'online-movie-database.p.rapidapi.com'
     }
   }

@@ -1,6 +1,6 @@
-import type { MovieDataAll, MovieInfo } from '@/types/movies'
+import type { MovieInfo } from '@/types/movies'
 import type { GetServerSideProps } from 'next'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import CarouselMovies from '../components/CarouselMovies/CarouselMovies'
 import FirstComponent from '../components/FirstComponent/FirstComponent'
 import Header from '../components/Header/Header'
@@ -9,27 +9,40 @@ import { fetchPopularActors } from '@/data/actors'
 import { ActorsNode } from '@/types/actors'
 import CarouselActors from '@/components/CarouselActor/CarouselActor'
 import Footer from '@/components/Footer/Footer'
+import { AppContext } from '@/context/AppContext'
 
 export type Movies = MovieInfo[]
 export type ActorNames = ActorsNode[]
 
 interface HomeProps {
-  initialMovies: Movies
-  initialActors: ActorNames
+  initialMovies: Movies | null
+  initialActors: ActorNames | null
 }
 
 export default function Home({ initialMovies, initialActors }: HomeProps) {
-  const [movies, setMovies] = useState<Movies>(initialMovies)
-  const [actors, setActors] = useState<ActorNames>(initialActors)
+  const { movies, actors, setMovies, setActors } = useContext(AppContext)
   const [isLoading, setIsLoading] = useState(true)
-  console.log(actors)
 
   useEffect(() => {
-    setIsLoading(false)
-  }, [])
+    const fetchData = async () => {
+      if (!movies || movies.length === 0) {
+        const fetchedMovies = initialMovies || await fetchPopularMovies()
+        setMovies(fetchedMovies)
+      }
 
-  const mainMovie = movies.shift()
-  const otherMovies = movies?.slice(0, 3)
+      if (!actors || actors.length === 0) {
+        const fetchedActors = initialActors || await fetchPopularActors()
+        setActors(fetchedActors)
+      }
+
+      setIsLoading(false)
+    }
+
+    fetchData()
+  }, [movies, actors, initialMovies, initialActors, setMovies, setActors])
+
+  const mainMovie = movies?.[0]
+  const otherMovies = movies?.slice(1, 4)
   const latestMovies = movies
     ? movies
         .sort((a, b) =>
@@ -54,22 +67,10 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
             listMovies={latestMovies}
           />
           <CarouselMovies title="Recomendados" listMovies={sortMovies} />
-          <CarouselActors title="Celebridades " listActors={initialActors} />
+          <CarouselActors title="Celebridades " listActors={actors} />
         </>
       )}
       <Footer />
     </>
   )
-}
-
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  const movies = await fetchPopularMovies()
-  const actors = await fetchPopularActors()
-
-  return {
-    props: {
-      initialMovies: movies,
-      initialActors: actors
-    },
-  }
 }

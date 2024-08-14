@@ -7,12 +7,14 @@ import {
   PreviewRating,
   Title,
 } from './styled'
+import RouteComponent from '../RouteComponent/RouteComponent'
 
 interface PreviewMovieProps {
   movie: MovieInfo
 }
 function PreviewMovie({ movie }: PreviewMovieProps) {
   return (
+    <RouteComponent path={`/page/movie/${movie.node.id}`} >
     <PreviewMovieContainer bannerImg={movie.node.primaryImage.url}>
       <PreviewArea>
         <PreviewRating>
@@ -27,6 +29,7 @@ function PreviewMovie({ movie }: PreviewMovieProps) {
         </div>
       </PreviewArea>
     </PreviewMovieContainer>
+    </RouteComponent>
   )
 }
 
