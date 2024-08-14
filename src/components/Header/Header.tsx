@@ -79,7 +79,7 @@ function Header() {
         <ConfigSettingIcon>
           <LuSlidersHorizontal color="#fff" />
         </ConfigSettingIcon>
-        <ModalOverlay isOpen={modalIsOpen}>
+        <ModalOverlay $isOpen={modalIsOpen}>
           <ContentOverlay>
             <TextResult>Resultados</TextResult>
             <SearchCardWrapper>

@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import type { MovieInfo } from '@/types/movies'
 import { useRef, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import type { Swiper as SwiperType } from 'swiper'
@@ -9,12 +8,14 @@ import { FreeMode, Pagination } from 'swiper/modules'
 import { BorderWithRadio } from '../BorderWithRadio/style'
 import PreviewMovie from '../PreviewMovie/PreviewMovie'
 import { CarouselMoviesSection, ControlArea, Title } from './style'
+import { ActorsNode } from '@/types/actors'
+import PreviewActor from '../PreviewActor/PreviewActor'
 
-interface CarouselMoviesProps {
+interface CarouselActorsProps {
   title: string
-  listMovies: MovieInfo[]
+  listActors: ActorsNode[]
 }
-function CarouselMovies({ title, listMovies }: CarouselMoviesProps) {
+function CarouselActors({ title, listActors }: CarouselActorsProps) {
   const swiperRef = useRef<SwiperType | null>(null)
   const [isBeginning, setIsBeginning] = useState(true)
   const [isEnd, setIsEnd] = useState(false)
@@ -65,7 +66,7 @@ function CarouselMovies({ title, listMovies }: CarouselMoviesProps) {
         }}
         modules={[FreeMode, Pagination]}
         className="mySwiper"
-        slidesPerView={4}
+        slidesPerView={5}
         onBeforeInit={(swiper) => {
           swiperRef.current = swiper
         }}
@@ -74,9 +75,9 @@ function CarouselMovies({ title, listMovies }: CarouselMoviesProps) {
           setIsEnd(swiper.isEnd)
         }}
       >
-        {listMovies?.map((movie) => (
-          <SwiperSlide key={movie.node.id}>
-            <PreviewMovie movie={movie} />
+        {listActors?.map((actor) => (
+          <SwiperSlide key={actor.node.id}>
+            <PreviewActor actor={actor} />
           </SwiperSlide>
         ))}
       </Swiper>
@@ -84,4 +85,4 @@ function CarouselMovies({ title, listMovies }: CarouselMoviesProps) {
   )
 }
 
-export default CarouselMovies
+export default CarouselActors

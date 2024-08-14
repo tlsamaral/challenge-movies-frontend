@@ -1,20 +1,27 @@
 import type { MovieDataAll, MovieInfo } from '@/types/movies'
-import axios from 'axios'
 import type { GetServerSideProps } from 'next'
 import { useEffect, useState } from 'react'
 import CarouselMovies from '../components/CarouselMovies/CarouselMovies'
 import FirstComponent from '../components/FirstComponent/FirstComponent'
 import Header from '../components/Header/Header'
+import { fetchPopularMovies } from '@/data/movies'
+import { fetchPopularActors } from '@/data/actors'
+import { ActorsNode } from '@/types/actors'
+import CarouselActors from '@/components/CarouselActor/CarouselActor'
 
 export type Movies = MovieInfo[]
+export type ActorNames = ActorsNode[]
 
 interface HomeProps {
   initialMovies: Movies
+  initialActors: ActorNames
 }
 
-export default function Home({ initialMovies }: HomeProps) {
+export default function Home({ initialMovies, initialActors }: HomeProps) {
   const [movies, setMovies] = useState<Movies>(initialMovies)
+  const [actors, setActors] = useState<ActorNames>(initialActors)
   const [isLoading, setIsLoading] = useState(true)
+  console.log(actors)
 
   useEffect(() => {
     setIsLoading(false)
@@ -46,6 +53,7 @@ export default function Home({ initialMovies }: HomeProps) {
             listMovies={latestMovies}
           />
           <CarouselMovies title="Recomendados" listMovies={sortMovies} />
+          <CarouselActors title="Celebridades " listActors={initialActors} />
         </>
       )}
     </>
@@ -53,51 +61,13 @@ export default function Home({ initialMovies }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  // const options = {
-  //   method: 'GET',
-  //   url: 'https://imdb-top-100-movies.p.rapidapi.com/',
-  //   headers: {
-  //     'x-rapidapi-key': '575c925fb8mshca0b3947edf1ae3p1447e2jsn2c38e4393425',
-  //     'x-rapidapi-host': 'imdb-top-100-movies.p.rapidapi.com',
-  //   },
-  // }
-
-  // let movies: Movies = []
-
-  // try {
-  //   const response = await axios.request<Movies>(options)
-  //   movies = response.data
-  // } catch (error) {
-  //   console.error(error)
-  // }
-
-  const options2 = {
-    method: 'GET',
-    url: 'https://online-movie-database.p.rapidapi.com/title/v2/get-popular',
-    params: {
-      first: '20',
-      country: 'US',
-      language: 'en-US',
-    },
-    headers: {
-      'x-rapidapi-key': '575c925fb8mshca0b3947edf1ae3p1447e2jsn2c38e4393425',
-      'x-rapidapi-host': 'online-movie-database.p.rapidapi.com',
-    },
-  }
-
-  let moviesResponse: MovieDataAll | null = null
-  try {
-    const response = await axios.request<MovieDataAll>(options2)
-    moviesResponse = response.data
-  } catch (error) {
-    console.error(error)
-  }
-
-  const movies = moviesResponse?.data.movies.edges ?? []
+  const movies = await fetchPopularMovies()
+  const actors = await fetchPopularActors()
 
   return {
     props: {
       initialMovies: movies,
+      initialActors: actors
     },
   }
 }
