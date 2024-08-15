@@ -41,7 +41,7 @@ export const InputContainer = styled.article`
 `
 
 interface ConfigSettingIconProps {
-  countGenre: number
+  $countGenre: number
 }
 export const ConfigSettingIcon = styled.button<ConfigSettingIconProps>`
     height: 48px;
@@ -61,7 +61,7 @@ export const ConfigSettingIcon = styled.button<ConfigSettingIconProps>`
     }
 
     &::before {
-    content: '${(props) => (props.countGenre > 0 ? props.countGenre : '')}';
+    content: '${(props) => (props.$countGenre > 0 ? props.$countGenre : '')}';
     position: absolute;
     top: -5px;
     left: -5px;
@@ -75,7 +75,7 @@ export const ConfigSettingIcon = styled.button<ConfigSettingIconProps>`
     justify-content: center;
     font-size: 14px;
     font-weight: bold;
-    visibility: ${(props) => (props.countGenre > 0 ? 'visible' : 'hidden')};
+    visibility: ${(props) => (props.$countGenre > 0 ? 'visible' : 'hidden')};
   }
 `
 export const SectionCenter = styled.section`

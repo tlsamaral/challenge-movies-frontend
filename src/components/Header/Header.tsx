@@ -20,7 +20,7 @@ import {
   TextResult,
 } from './style'
 
-function Header() {
+export default function Header() {
   const [countGenre, setCountGenre] = useState(0)
   const { getMoviesBySearch, movies } = useContext(AppContext)
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -65,7 +65,7 @@ function Header() {
             onBlur={() => setModalIsOpen(false)}
           />
         </InputContainer>
-        <ConfigSettingIcon countGenre={countGenre} onClick={handleSetup}>
+        <ConfigSettingIcon $countGenre={countGenre} onClick={handleSetup}>
           <LuSlidersHorizontal color="#fff" size={18} />
         </ConfigSettingIcon>
         <ModalOverlay $isOpen={modalIsOpen}>
