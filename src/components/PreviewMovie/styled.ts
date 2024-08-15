@@ -13,6 +13,19 @@ export const PreviewMovie = styled.article<PreviewMovieProps>`
     
     background-repeat: no-repeat;
     background-size: cover;
+
+    @media (max-width: 620px) {
+        width: 270px;
+    }
+    @media (max-width: 570px) {
+        width: 250px;
+    }
+    @media (max-width: 530px) {
+        width: 220px;
+    }
+    @media (max-width: 470px) {
+        width: 200px;
+    }
 `
 
 export const PreviewArea = styled.div`

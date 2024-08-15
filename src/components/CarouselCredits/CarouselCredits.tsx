@@ -1,15 +1,16 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import { ActorsNode } from '@/types/actors'
+import type { Credit } from '@/types/movies'
+import { caroulselBreakpoints } from '@/utils/caroulsel-breakpoints'
 import { useRef, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import type { Swiper as SwiperType } from 'swiper'
 import { FreeMode, Pagination } from 'swiper/modules'
 import { BorderWithRadio } from '../BorderWithRadio/style'
-import { CarouselMoviesSection, ControlArea, Title } from './style'
-import { ActorsNode } from '@/types/actors'
 import PreviewPeople from '../PreviewPeople/PreviewPeople'
-import { Credit } from '@/types/movies'
+import { CarouselMoviesSection, ControlArea, Title } from './style'
 
 interface CarouselCreditsProps {
   title: string
@@ -66,7 +67,6 @@ function CarouselCredits({ title, listPeople }: CarouselCreditsProps) {
         }}
         modules={[FreeMode, Pagination]}
         className="mySwiper"
-        slidesPerView={5}
         onBeforeInit={(swiper) => {
           swiperRef.current = swiper
         }}
@@ -74,6 +74,7 @@ function CarouselCredits({ title, listPeople }: CarouselCreditsProps) {
           setIsBeginning(swiper.isBeginning)
           setIsEnd(swiper.isEnd)
         }}
+        breakpoints={{ ...caroulselBreakpoints, '640': { slidesPerView: 3 } }}
       >
         {listPeople?.map((people) => (
           <SwiperSlide key={people.name.id}>

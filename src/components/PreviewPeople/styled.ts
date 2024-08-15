@@ -13,6 +13,10 @@ export const PreviewActor = styled.article<PreviewActorProps>`
     
     background-repeat: no-repeat;
     background-size: cover;
+
+    @media (max-width: 640px) {
+        width: 166px;
+    }
 `
 
 export const PreviewArea = styled.div`

@@ -6,7 +6,7 @@ import { fetchPopularMovies } from '@/data/movies'
 import type { ActorsNode } from '@/types/actors'
 import type { MovieInfo } from '@/types/movies'
 
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import CarouselMovies from '../components/CarouselMovies/CarouselMovies'
 import FirstComponent from '../components/FirstComponent/FirstComponent'
 
@@ -33,20 +33,12 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
         const fetchedActors = initialActors || (await fetchPopularActors())
         setActors(fetchedActors)
       }
-
+      console.log('on fetch')
       setIsLoading(false)
     }
 
     fetchData()
-  }, [
-    movies,
-    actors,
-    initialMovies,
-    initialActors,
-    setMovies,
-    setActors,
-    setIsLoading,
-  ])
+  }, [])
 
   const mainMovie = movies?.reduce((highestRated, currentMovie) => {
     return (currentMovie.node.ratingsSummary.aggregateRating || 5.5) >

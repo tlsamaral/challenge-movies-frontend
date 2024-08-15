@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import type { MovieInfo } from '@/types/movies'
+import { caroulselBreakpoints } from '@/utils/caroulsel-breakpoints'
 import { useRef, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import type { Swiper as SwiperType } from 'swiper'
@@ -65,13 +66,18 @@ function CarouselMovies({ title, listMovies }: CarouselMoviesProps) {
         }}
         modules={[FreeMode, Pagination]}
         className="mySwiper"
-        slidesPerView={4}
         onBeforeInit={(swiper) => {
           swiperRef.current = swiper
         }}
         onSlideChange={(swiper) => {
           setIsBeginning(swiper.isBeginning)
           setIsEnd(swiper.isEnd)
+        }}
+        breakpoints={{
+          ...caroulselBreakpoints,
+          '1200': {
+            slidesPerView: 4,
+          },
         }}
       >
         {listMovies?.map((movie) => (
