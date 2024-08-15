@@ -84,6 +84,13 @@ export default function PersonPage() {
         </Title>
         <JobsList>
           <Swiper
+            slidesPerView={3}
+            grid={{
+              rows: 5,
+            }}
+            spaceBetween={30}
+            modules={[Grid, Pagination, Navigation]}
+            className="mySwiper2"
             onBeforeInit={(swiper) => {
               swiperRef.current = swiper
             }}
@@ -91,15 +98,6 @@ export default function PersonPage() {
               setIsBeginning(swiper.isBeginning)
               setIsEnd(swiper.isEnd)
             }}
-            slidesPerView={3}
-            grid={{
-              rows: 3,
-            }}
-            spaceBetween={12}
-            navigation={false}
-            pagination={{ clickable: true }}
-            modules={[Grid, Pagination, Navigation]}
-            className="mySwiper"
           >
             {jobs[0].knownFor.edges.map((job, index) => (
               <SwiperSlide key={index}>

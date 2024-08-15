@@ -1,16 +1,16 @@
+import CarouselActors from '@/components/CarouselActor/CarouselActor'
+import Footer from '@/components/Footer/Footer'
+import { AppContext } from '@/context/AppContext'
+import { fetchPopularActors } from '@/data/actors'
+import { fetchPopularMovies } from '@/data/movies'
+import { ContainerApp } from '@/styles'
+import type { ActorsNode } from '@/types/actors'
 import type { MovieInfo } from '@/types/movies'
 import type { GetServerSideProps } from 'next'
 import { useContext, useEffect, useState } from 'react'
 import CarouselMovies from '../components/CarouselMovies/CarouselMovies'
 import FirstComponent from '../components/FirstComponent/FirstComponent'
 import Header from '../components/Header/Header'
-import { fetchPopularMovies } from '@/data/movies'
-import { fetchPopularActors } from '@/data/actors'
-import { ActorsNode } from '@/types/actors'
-import CarouselActors from '@/components/CarouselActor/CarouselActor'
-import Footer from '@/components/Footer/Footer'
-import { AppContext } from '@/context/AppContext'
-import { ContainerApp } from '@/styles'
 
 export type Movies = MovieInfo[]
 export type ActorNames = ActorsNode[]
@@ -21,30 +21,42 @@ interface HomeProps {
 }
 
 export default function Home({ initialMovies, initialActors }: HomeProps) {
-  const { movies, actors, setMovies, setActors, isLoading, setIsLoading } = useContext(AppContext)
+  const { movies, actors, setMovies, setActors, isLoading, setIsLoading } =
+    useContext(AppContext)
 
   useEffect(() => {
     const fetchData = async () => {
       if (!movies || movies.length === 0) {
-        const fetchedMovies = initialMovies || await fetchPopularMovies()
+        const fetchedMovies = initialMovies || (await fetchPopularMovies())
         setMovies(fetchedMovies)
       }
 
       if (!actors || actors.length === 0) {
-        const fetchedActors = initialActors || await fetchPopularActors()
+        const fetchedActors = initialActors || (await fetchPopularActors())
         setActors(fetchedActors)
       }
+
       setIsLoading(false)
     }
 
     fetchData()
-  }, [movies, actors, initialMovies, initialActors, setMovies, setActors])
+  }, [
+    movies,
+    actors,
+    initialMovies,
+    initialActors,
+    setMovies,
+    setActors,
+    setIsLoading,
+  ])
 
   const mainMovie = movies?.reduce((highestRated, currentMovie) => {
-      return (currentMovie.node.ratingsSummary.aggregateRating || 5.5) > (highestRated.node.ratingsSummary.aggregateRating || 5.5)
-      ? currentMovie 
-      : highestRated;
-  }, movies[0]);
+    return (currentMovie.node.ratingsSummary.aggregateRating || 5.5) >
+      (highestRated.node.ratingsSummary.aggregateRating || 5.5)
+      ? currentMovie
+      : highestRated
+  }, movies[0])
+
   const otherMovies = movies?.slice(1, 4)
   const latestMovies = movies
     ? movies
