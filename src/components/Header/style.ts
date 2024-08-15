@@ -90,7 +90,7 @@ export const SectionCenter = styled.section`
 `
 
 interface ModalOverlayProps {
-  isOpen: boolean
+  $isOpen: boolean
 }
 export const ModalOverlay = styled.div<ModalOverlayProps>`
   width: 100%;
@@ -98,9 +98,9 @@ export const ModalOverlay = styled.div<ModalOverlayProps>`
   bottom: 0;
   padding-top: 12px;
   background: transparent;
-  transform: ${(props) => (props.isOpen ? 'translateY(100%)' : 'translateY(-200%)')};
+  transform: ${(props) => (props.$isOpen ? 'translateY(100%)' : 'translateY(-200%)')};
   transition: transform 300ms ease-in-out, opacity 300ms ease-in-out;
-  opacity: ${(props) => (props.isOpen ? 1 : 0)};
+  opacity: ${(props) => (props.$isOpen ? 1 : 0)};
   
   @keyframes fadeIn {
     0% {
@@ -132,7 +132,7 @@ export const ModalOverlay = styled.div<ModalOverlayProps>`
     }
   }
 
-  animation: ${(props) => (props.isOpen ? 'fadeIn 300ms ease-in-out' : 'fadeOut 300ms ease-in-out')};
+  animation: ${(props) => (props.$isOpen ? 'fadeIn 300ms ease-in-out' : 'fadeOut 300ms ease-in-out')};
 `
 export const TextResult = styled.small`
     font-family: Inter;

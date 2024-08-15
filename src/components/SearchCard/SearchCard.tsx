@@ -7,21 +7,22 @@ import {
   Text,
   Title,
 } from './style'
+import { MovieInfo } from '@/types/movies'
 
 interface SearchCardProps {
-  movie: MoviesFiltered
+  movie: MovieInfo
 }
 
 function SearchCard({ movie }: SearchCardProps) {
   return (
     <SearchCardContainer>
-      <Picture src={movie.i?.imageUrl ?? ''} />
+      <Picture src={movie.node.primaryImage.url} />
       <Content>
         <ContainerTitle>
-          <Title>{movie.l}</Title>
+          <Title>{movie.node.titleText.text}</Title>
         </ContainerTitle>
-        <Text>{movie.s}</Text>
-        <Text>{movie.y}</Text>
+        <Text>{movie.node.releaseYear.year}</Text>
+        <Text>{movie.node.principalCredits[0].credits.map(c => c.name.nameText.text).join(', ')}</Text>
       </Content>
     </SearchCardContainer>
   )

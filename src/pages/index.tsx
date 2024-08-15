@@ -1,27 +1,51 @@
-import type { MovieDataAll, MovieInfo } from '@/types/movies'
-import axios from 'axios'
+import type { MovieInfo } from '@/types/movies'
 import type { GetServerSideProps } from 'next'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import CarouselMovies from '../components/CarouselMovies/CarouselMovies'
 import FirstComponent from '../components/FirstComponent/FirstComponent'
 import Header from '../components/Header/Header'
+import { fetchPopularMovies } from '@/data/movies'
+import { fetchPopularActors } from '@/data/actors'
+import { ActorsNode } from '@/types/actors'
+import CarouselActors from '@/components/CarouselActor/CarouselActor'
+import Footer from '@/components/Footer/Footer'
+import { AppContext } from '@/context/AppContext'
+import { ContainerApp } from '@/styles'
 
 export type Movies = MovieInfo[]
+export type ActorNames = ActorsNode[]
 
 interface HomeProps {
-  initialMovies: Movies
+  initialMovies: Movies | null
+  initialActors: ActorNames | null
 }
 
-export default function Home({ initialMovies }: HomeProps) {
-  const [movies, setMovies] = useState<Movies>(initialMovies)
-  const [isLoading, setIsLoading] = useState(true)
+export default function Home({ initialMovies, initialActors }: HomeProps) {
+  const { movies, actors, setMovies, setActors, isLoading, setIsLoading } = useContext(AppContext)
 
   useEffect(() => {
-    setIsLoading(false)
-  }, [])
+    const fetchData = async () => {
+      if (!movies || movies.length === 0) {
+        const fetchedMovies = initialMovies || await fetchPopularMovies()
+        setMovies(fetchedMovies)
+      }
 
-  const mainMovie = movies.shift()
-  const otherMovies = movies?.slice(0, 3)
+      if (!actors || actors.length === 0) {
+        const fetchedActors = initialActors || await fetchPopularActors()
+        setActors(fetchedActors)
+      }
+      setIsLoading(false)
+    }
+
+    fetchData()
+  }, [movies, actors, initialMovies, initialActors, setMovies, setActors])
+
+  const mainMovie = movies?.reduce((highestRated, currentMovie) => {
+      return (currentMovie.node.ratingsSummary.aggregateRating || 5.5) > (highestRated.node.ratingsSummary.aggregateRating || 5.5)
+      ? currentMovie 
+      : highestRated;
+  }, movies[0]);
+  const otherMovies = movies?.slice(1, 4)
   const latestMovies = movies
     ? movies
         .sort((a, b) =>
@@ -32,7 +56,7 @@ export default function Home({ initialMovies }: HomeProps) {
   const sortMovies = movies?.sort(() => Math.random() - 0.5).slice(0, 35)
 
   return (
-    <>
+    <ContainerApp>
       <Header />
       {isLoading ? (
         <p>Loading...</p>
@@ -46,58 +70,10 @@ export default function Home({ initialMovies }: HomeProps) {
             listMovies={latestMovies}
           />
           <CarouselMovies title="Recomendados" listMovies={sortMovies} />
+          <CarouselActors title="Celebridades" listActors={actors} />
         </>
       )}
-    </>
+      <Footer />
+    </ContainerApp>
   )
-}
-
-export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
-  // const options = {
-  //   method: 'GET',
-  //   url: 'https://imdb-top-100-movies.p.rapidapi.com/',
-  //   headers: {
-  //     'x-rapidapi-key': '575c925fb8mshca0b3947edf1ae3p1447e2jsn2c38e4393425',
-  //     'x-rapidapi-host': 'imdb-top-100-movies.p.rapidapi.com',
-  //   },
-  // }
-
-  // let movies: Movies = []
-
-  // try {
-  //   const response = await axios.request<Movies>(options)
-  //   movies = response.data
-  // } catch (error) {
-  //   console.error(error)
-  // }
-
-  const options2 = {
-    method: 'GET',
-    url: 'https://online-movie-database.p.rapidapi.com/title/v2/get-popular',
-    params: {
-      first: '20',
-      country: 'US',
-      language: 'en-US',
-    },
-    headers: {
-      'x-rapidapi-key': '575c925fb8mshca0b3947edf1ae3p1447e2jsn2c38e4393425',
-      'x-rapidapi-host': 'online-movie-database.p.rapidapi.com',
-    },
-  }
-
-  let moviesResponse: MovieDataAll | null = null
-  try {
-    const response = await axios.request<MovieDataAll>(options2)
-    moviesResponse = response.data
-  } catch (error) {
-    console.error(error)
-  }
-
-  const movies = moviesResponse?.data.movies.edges ?? []
-
-  return {
-    props: {
-      initialMovies: movies,
-    },
-  }
 }

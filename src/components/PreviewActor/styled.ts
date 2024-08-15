@@ -1,10 +1,10 @@
 import styled from 'styled-components'
-interface PreviewMovieProps {
+interface PreviewActorProps {
   $bannerImg?: string
 }
-export const PreviewMovie = styled.article<PreviewMovieProps>`
+export const PreviewActor = styled.article<PreviewActorProps>`
     width: 100%;
-    max-width: 380px;
+    max-width: 268px;
     height: 253.67px;
     border-radius: 24px;
     padding: 12px;
@@ -20,7 +20,7 @@ export const PreviewArea = styled.div`
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-end;
 `
 
 export const PreviewRating = styled.article`
@@ -45,4 +45,12 @@ export const Title = styled.h3`
     line-height: 22.4px;
     margin-bottom: 12px;
     color: #eee;
+`
+export const SubTitle = styled.h5`
+    font-family: Inter;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 22.4px;
+    text-align: left;
+    color: #B4B4B4;
 `

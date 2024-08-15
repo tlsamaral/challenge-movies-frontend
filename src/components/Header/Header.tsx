@@ -1,10 +1,9 @@
-import type {
-  MoviesFiltered,
-  MoviesFilteredResponse,
-} from '@/types/movie-filtered'
-import axios from 'axios'
 import Image from 'next/image'
-import { type ChangeEvent, useEffect, useState } from 'react'
+
+import { type ChangeEvent, useContext, useEffect, useState } from 'react'
+
+import { AppContext } from '@/context/AppContext'
+import type { MovieInfo } from '@/types/movies'
 import { FiSearch } from 'react-icons/fi'
 import { LuSlidersHorizontal } from 'react-icons/lu'
 import ConfigCard from '../ConfigCard/ConfigCard'
@@ -21,38 +20,20 @@ import {
   TextResult,
 } from './style'
 
-export default function Header() {
+function Header() {
+  const [countGenre, setCountGenre] = useState(0)
+  const { getMoviesBySearch, movies } = useContext(AppContext)
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [setupCard, setSetupCard] = useState(false)
   const [search, setSearch] = useState('')
-  const [moviesFiltered, setMoviesFiltered] = useState<MoviesFiltered[]>([])
-  const [countGenre, setCountGenre] = useState(0)
+
+  const [moviesFiltered, setMoviesFiltered] = useState<MovieInfo[]>([])
 
   useEffect(() => {
-    const getData = async () => {
-      if (search === '') {
-        setMoviesFiltered([])
-        return
-      }
-
-      const options = {
-        method: 'GET',
-        url: 'https://online-movie-database.p.rapidapi.com/auto-complete',
-        params: { q: search },
-        headers: {
-          'x-rapidapi-key':
-            '575c925fb8mshca0b3947edf1ae3p1447e2jsn2c38e4393425',
-          'x-rapidapi-host': 'online-movie-database.p.rapidapi.com',
-        },
-      }
-      try {
-        const response = await axios.request<MoviesFilteredResponse>(options)
-        setMoviesFiltered(response.data.d)
-      } catch (error) {
-        console.error(error)
-      }
-    }
-    getData()
+    const filteredMovies = movies.filter((movie) =>
+      movie.node.titleText.text.includes(search),
+    )
+    setMoviesFiltered(filteredMovies)
   }, [search])
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +68,7 @@ export default function Header() {
         <ConfigSettingIcon countGenre={countGenre} onClick={handleSetup}>
           <LuSlidersHorizontal color="#fff" size={18} />
         </ConfigSettingIcon>
-        <ModalOverlay isOpen={modalIsOpen}>
+        <ModalOverlay $isOpen={modalIsOpen}>
           <ContentOverlay>
             {setupCard ? (
               <>
@@ -101,7 +82,7 @@ export default function Header() {
                     <Text>Carregando filmes...</Text>
                   ) : (
                     moviesFiltered.map((movie) => (
-                      <SearchCard key={movie.id} movie={movie} />
+                      <SearchCard key={movie.node.id} movie={movie} />
                     ))
                   )}
                 </SearchCardWrapper>

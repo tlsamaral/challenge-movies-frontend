@@ -1,13 +1,13 @@
 import styled from 'styled-components'
 
 interface BannerTopOneProps {
-  bannerImg?: string
+  $bannerImg?: string
 }
 export const BannerTopOne = styled.div<BannerTopOneProps>`
       width: 1000px;
       height: 826px;
       border-radius: 24px;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), ${(props) => `url(${props?.bannerImg})`};
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), ${(props) => `url(${props?.$bannerImg})`};
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;

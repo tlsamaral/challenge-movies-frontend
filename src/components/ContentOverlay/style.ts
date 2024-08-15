@@ -5,7 +5,7 @@ export const ContentOverlayContainer = styled.div`
     max-height: 251px;
     overflow: hidden auto;
     padding: 16px;
-    border-radius: 24px;
+    border-radius: 16px;
     background-color: #191919;
     display: flex;
     flex-direction: column;
