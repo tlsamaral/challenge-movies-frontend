@@ -37,7 +37,7 @@ interface ConfigCardProps {
 
 export default function ConfigCard({ setCount }: ConfigCardProps) {
   const [selectedsGenre, setSelectedsGenre] = useState<string[]>([])
-  const [showMore, setShowMore] = useState(false) // Estado para controlar a exibição do conteúdo adicional
+  const [showMore, setShowMore] = useState(false)
 
   const handleCheckbox = (event: ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = event.target
@@ -93,7 +93,7 @@ export default function ConfigCard({ setCount }: ConfigCardProps) {
         </TextMoreInfo>
       </Content>
       <Separator />
-      <InputContainer isVisible={showMore}>
+      <InputContainer $isVisible={showMore}>
         <InputDate type="date" />
         <small>a</small>
         <InputDate type="date" />

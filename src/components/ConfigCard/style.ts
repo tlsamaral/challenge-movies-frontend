@@ -1,4 +1,3 @@
-import DatePicker from 'react-datepicker'
 import styled from 'styled-components'
 
 interface ConfigCardProps {
@@ -82,7 +81,7 @@ export const Label = styled.label`
     color: #eee;
 `
 interface InputContainerProps {
-  inputContainerIsVisible: boolean
+  $isVisible: boolean
 }
 export const InputContainer = styled.div<InputContainerProps>`
     display: flex;
@@ -91,9 +90,9 @@ export const InputContainer = styled.div<InputContainerProps>`
     justify-content: center;
     z-index: 98;
     transition: transform 0.3s ease, opacity 0.1s ease;
-    transform: ${({ inputContainerIsVisible }) => (inputContainerIsVisible ? 'translateY(0)' : 'translateY(-100%)')};
-    opacity: ${({ inputContainerIsVisible }) => (inputContainerIsVisible ? '1' : '0')};
-    display: ${({ inputContainerIsVisible }) => (inputContainerIsVisible ? 'flex' : 'none')};
+    transform: ${({ $isVisible }) => ($isVisible ? 'translateY(0)' : 'translateY(-100%)')};
+    opacity: ${({ $isVisible }) => ($isVisible ? '1' : '0')};
+    display: ${({ $isVisible }) => ($isVisible ? 'flex' : 'none')};
     position: relative;
 
     & > small {
@@ -118,71 +117,5 @@ export const InputDate = styled.input`
     &::-webkit-calendar-picker-indicator {
         filter: invert(80%) sepia(20%) saturate(500%) hue-rotate(180deg) brightness(90%) contrast(90%);
         cursor: pointer;
-    }
-`
-
-export const InputDatePicker = styled(DatePicker)`
-    width: 157px;
-    height: 48px;
-    border-radius: 12px;
-    padding: 12px;
-    color: #B4B4B4;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    line-height: 16.94px;
-    text-align: left;
-    background: #232323;
-    border: none;
-
-    /* Estilizando o ícone do calendário */
-    &::after {
-        content: "";
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 24px;
-        height: 24px;
-        background-color: #B4B4B4; /* Cor do ícone do calendário */
-        pointer-events: none;
-    }
-
-    .react-datepicker__input-container input {
-        width: 100%;
-        height: 100%;
-        background: transparent;
-        border: none;
-        color: inherit;
-    }
-
-    .react-datepicker-wrapper {
-        width: 100%;
-    }
-
-    .react-datepicker {
-        background-color: #232323;
-        border: none;
-    }
-
-    .react-datepicker__header {
-        background-color: #2c2c2c;
-        border-bottom: none;
-    }
-
-    .react-datepicker__current-month,
-    .react-datepicker-time__header {
-        color: #B4B4B4;
-    }
-
-    .react-datepicker__day,
-    .react-datepicker__time-name {
-        color: #B4B4B4;
-    }
-
-    .react-datepicker__day--selected,
-    .react-datepicker__day--keyboard-selected {
-        background-color: #1a73e8;
-        color: #fff;
     }
 `
