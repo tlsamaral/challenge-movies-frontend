@@ -1,9 +1,13 @@
-import Image from 'next/image'
-
-import { type ChangeEvent, useContext, useEffect, useState } from 'react'
-
 import { AppContext } from '@/context/AppContext'
 import type { MovieInfo } from '@/types/movies'
+import Image from 'next/image'
+import {
+  type ChangeEvent,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { FiSearch } from 'react-icons/fi'
 import { LuSlidersHorizontal } from 'react-icons/lu'
 import ConfigCard from '../ConfigCard/ConfigCard'
@@ -26,25 +30,49 @@ export default function Header() {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [setupCard, setSetupCard] = useState(false)
   const [search, setSearch] = useState('')
-
   const [moviesFiltered, setMoviesFiltered] = useState<MovieInfo[]>([])
+
+  const modalRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     const filteredMovies = movies.filter((movie) =>
       movie.node.titleText.text.includes(search),
     )
     setMoviesFiltered(filteredMovies)
-  }, [search])
+  }, [search, movies])
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node) &&
+        inputRef.current &&
+        !inputRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        setModalIsOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value
     setSearch(value)
     setModalIsOpen(value !== '')
+    setSetupCard(false)
   }
 
   const handleSetup = () => {
-    setSetupCard((prev) => !prev)
-    setModalIsOpen((prev) => !prev)
+    setSetupCard(true)
+    setModalIsOpen(true)
   }
 
   return (
@@ -63,17 +91,20 @@ export default function Header() {
             value={search}
             onChange={handleInputChange}
             onBlur={() => setModalIsOpen(false)}
+            ref={inputRef}
           />
         </InputContainer>
-        <ConfigSettingIcon $countGenre={countGenre} onClick={handleSetup}>
+        <ConfigSettingIcon
+          $countGenre={countGenre}
+          onClick={handleSetup}
+          ref={buttonRef}
+        >
           <LuSlidersHorizontal color="#fff" size={18} />
         </ConfigSettingIcon>
-        <ModalOverlay $isOpen={modalIsOpen}>
+        <ModalOverlay $isOpen={modalIsOpen} ref={modalRef}>
           <ContentOverlay>
             {setupCard ? (
-              <>
-                <ConfigCard setCount={setCountGenre} />
-              </>
+              <ConfigCard setCount={setCountGenre} />
             ) : (
               <>
                 <TextResult>Resultados</TextResult>

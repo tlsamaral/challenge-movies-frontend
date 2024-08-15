@@ -1,16 +1,15 @@
 import CarouselActors from '@/components/CarouselActor/CarouselActor'
-import Footer from '@/components/Footer/Footer'
+
 import { AppContext } from '@/context/AppContext'
 import { fetchPopularActors } from '@/data/actors'
 import { fetchPopularMovies } from '@/data/movies'
 import { ContainerApp } from '@/styles'
 import type { ActorsNode } from '@/types/actors'
 import type { MovieInfo } from '@/types/movies'
-import type { GetServerSideProps } from 'next'
+
 import { useContext, useEffect, useState } from 'react'
 import CarouselMovies from '../components/CarouselMovies/CarouselMovies'
 import FirstComponent from '../components/FirstComponent/FirstComponent'
-import Header from '../components/Header/Header'
 
 export type Movies = MovieInfo[]
 export type ActorNames = ActorsNode[]
@@ -69,7 +68,6 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
 
   return (
     <ContainerApp>
-      <Header />
       {isLoading ? (
         <p>Loading...</p>
       ) : (
@@ -85,7 +83,6 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
           <CarouselActors title="Celebridades" listActors={actors} />
         </>
       )}
-      <Footer />
     </ContainerApp>
   )
 }
