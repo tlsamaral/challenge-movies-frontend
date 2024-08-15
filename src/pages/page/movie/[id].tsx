@@ -2,12 +2,7 @@ import Button from '@/components/Button/Button'
 import CarouselCredits from '@/components/CarouselCredits/CarouselCredits'
 import CarouselMovies from '@/components/CarouselMovies/CarouselMovies'
 import CastCrew from '@/components/CastCrew/CastCrew'
-import {
-  Description,
-  InfoSection,
-  MoreInfo,
-  Rating,
-} from '@/components/FeaturedMovie/style'
+import { InfoSection, MoreInfo, Rating } from '@/components/FeaturedMovie/style'
 import Tag from '@/components/Tag/Tag'
 import { AppContext } from '@/context/AppContext'
 import type { MovieInfo } from '@/types/movies'
@@ -19,6 +14,7 @@ import {
   Banner,
   CastCrewContent,
   Content,
+  Description,
   InfoContent,
   MoviePageContainer,
   TagWrapper,

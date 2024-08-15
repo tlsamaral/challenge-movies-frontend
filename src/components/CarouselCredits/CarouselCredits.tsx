@@ -1,7 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import { ActorsNode } from '@/types/actors'
 import type { Credit } from '@/types/movies'
 import { caroulselBreakpoints } from '@/utils/caroulsel-breakpoints'
 import { useRef, useState } from 'react'
@@ -10,7 +9,8 @@ import type { Swiper as SwiperType } from 'swiper'
 import { FreeMode, Pagination } from 'swiper/modules'
 import { BorderWithRadio } from '../BorderWithRadio/style'
 import PreviewPeople from '../PreviewPeople/PreviewPeople'
-import { CarouselMoviesSection, ControlArea, Title } from './style'
+import { ControlArea, Title } from './style'
+import { CarouselSection } from '@/styles'
 
 interface CarouselCreditsProps {
   title: string
@@ -34,7 +34,7 @@ function CarouselCredits({ title, listPeople }: CarouselCreditsProps) {
   }
 
   return (
-    <CarouselMoviesSection>
+    <CarouselSection>
       <ControlArea>
         <Title>
           <BorderWithRadio />
@@ -82,7 +82,7 @@ function CarouselCredits({ title, listPeople }: CarouselCreditsProps) {
           </SwiperSlide>
         ))}
       </Swiper>
-    </CarouselMoviesSection>
+    </CarouselSection>
   )
 }
 

@@ -2,7 +2,6 @@ import styled from 'styled-components'
 
 export const InitialContainer = styled.section`
     display: flex;
-    padding: 0 24px 24px 24px;
     gap: 12px;
 
     @media (max-width: 820px) {

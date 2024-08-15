@@ -9,6 +9,7 @@ import type { MovieInfo } from '@/types/movies'
 import { useContext, useEffect, useState } from 'react'
 import CarouselMovies from '../components/CarouselMovies/CarouselMovies'
 import FirstComponent from '../components/FirstComponent/FirstComponent'
+import { ContentMain } from '@/styles'
 
 export type Movies = MovieInfo[]
 export type ActorNames = ActorsNode[]
@@ -62,7 +63,7 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <>
+        <ContentMain>
           {mainMovie && (
             <FirstComponent mainMovie={mainMovie} otherMovies={otherMovies} />
           )}
@@ -72,7 +73,7 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
           />
           <CarouselMovies title="Recomendados" listMovies={sortMovies} />
           <CarouselActors title="Celebridades" listActors={actors} />
-        </>
+        </ContentMain>
       )}
     </>
   )
