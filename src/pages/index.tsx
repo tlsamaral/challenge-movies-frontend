@@ -34,20 +34,12 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
         const fetchedActors = initialActors || (await fetchPopularActors())
         setActors(fetchedActors)
       }
-
+      console.log('on render')
       setIsLoading(false)
     }
 
     fetchData()
-  }, [
-    movies,
-    actors,
-    initialMovies,
-    initialActors,
-    setMovies,
-    setActors,
-    setIsLoading,
-  ])
+  }, [])
 
   const mainMovie = movies?.reduce((highestRated, currentMovie) => {
     return (currentMovie.node.ratingsSummary.aggregateRating || 5.5) >

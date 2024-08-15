@@ -2,6 +2,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import type { MovieInfo } from '@/types/movies'
+import { responsiveSwiper } from '@/utils/reponsive-caroulsel'
 import { useRef, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import type { Swiper as SwiperType } from 'swiper'
@@ -66,6 +67,7 @@ function CarouselMovies({ title, listMovies }: CarouselMoviesProps) {
         modules={[FreeMode, Pagination]}
         className="mySwiper"
         slidesPerView={4}
+        breakpoints={responsiveSwiper}
         onBeforeInit={(swiper) => {
           swiperRef.current = swiper
         }}
