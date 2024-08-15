@@ -1,27 +1,28 @@
+import type { ActorsNode } from '@/types/actors'
+import RouteComponent from '../RouteComponent/RouteComponent'
 import {
-  PreviewArea,
   PreviewActor as PreviewActorContainer,
+  PreviewArea,
   SubTitle,
   Title,
 } from './styled'
-import { ActorsNode } from '@/types/actors'
 
 interface PreviewActorProps {
   actor: ActorsNode
   characterName?: string
 }
-function PreviewActor({ actor, characterName  }: PreviewActorProps) {
+function PreviewActor({ actor, characterName }: PreviewActorProps) {
   return (
-    <PreviewActorContainer $bannerImg={actor.node.primaryImage.url}>
-      <PreviewArea>
-        <div>
-          <Title>
-            {actor.node.nameText.text}
-          </Title>
-          {characterName && (<SubTitle>{actor.node.nameText.text}</SubTitle>)} 
-        </div>
-      </PreviewArea>
-    </PreviewActorContainer>
+    <RouteComponent path={`/page/person/${actor.node.id}`}>
+      <PreviewActorContainer $bannerImg={actor.node.primaryImage.url}>
+        <PreviewArea>
+          <div>
+            <Title>{actor.node.nameText.text}</Title>
+            {characterName && <SubTitle>{actor.node.nameText.text}</SubTitle>}
+          </div>
+        </PreviewArea>
+      </PreviewActorContainer>
+    </RouteComponent>
   )
 }
 
