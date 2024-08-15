@@ -6,6 +6,12 @@ export const HeaderContainer = styled.header`
     display: flex;
     align-items: center;
     position: relative;
+
+    @media (max-width: 750px) {
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+    }
 `
 
 export const InputContainer = styled.article`
@@ -83,10 +89,14 @@ export const SectionCenter = styled.section`
     justify-content: center;
     align-items: center;
     gap: 12px;
-    position: absolute;
+    
+
+    @media (min-width: 750px) {
+      position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    }
 `
 
 interface ModalOverlayProps {

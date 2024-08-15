@@ -3,13 +3,13 @@ import CarouselActors from '@/components/CarouselActor/CarouselActor'
 import { AppContext } from '@/context/AppContext'
 import { fetchPopularActors } from '@/data/actors'
 import { fetchPopularMovies } from '@/data/movies'
-import { ContainerApp } from '@/styles'
 import type { ActorsNode } from '@/types/actors'
 import type { MovieInfo } from '@/types/movies'
 
 import { useContext, useEffect, useState } from 'react'
 import CarouselMovies from '../components/CarouselMovies/CarouselMovies'
 import FirstComponent from '../components/FirstComponent/FirstComponent'
+import { ContentMain } from '@/styles'
 
 export type Movies = MovieInfo[]
 export type ActorNames = ActorsNode[]
@@ -34,7 +34,7 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
         const fetchedActors = initialActors || (await fetchPopularActors())
         setActors(fetchedActors)
       }
-      console.log('on render')
+      console.log('on fetch')
       setIsLoading(false)
     }
 
@@ -59,11 +59,11 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
   const sortMovies = movies?.sort(() => Math.random() - 0.5).slice(0, 35)
 
   return (
-    <ContainerApp>
+    <>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <>
+        <ContentMain>
           {mainMovie && (
             <FirstComponent mainMovie={mainMovie} otherMovies={otherMovies} />
           )}
@@ -73,8 +73,8 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
           />
           <CarouselMovies title="Recomendados" listMovies={sortMovies} />
           <CarouselActors title="Celebridades" listActors={actors} />
-        </>
+        </ContentMain>
       )}
-    </ContainerApp>
+    </>
   )
 }

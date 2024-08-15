@@ -11,9 +11,6 @@ export const Title = styled.h2`
     align-items: center;
 `
 
-export const CarouselMoviesSection = styled.section`
-    padding: 24px;
-`
 export const ControlArea = styled.section`
     width: 100%;
     display: flex;

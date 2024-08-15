@@ -12,7 +12,7 @@ export const fetchJobsByCelebritie = async (id: string) => {
       language: 'en-US',
     },
     headers: {
-      'x-rapidapi-key': 'e2259ddd29msh8b738d3dbdf343fp1f5306jsndb3ee7a50307',
+      'x-rapidapi-key': '502d8b37b6msh4dc953486e7be00p112218jsn062fbe360556',
       'x-rapidapi-host': 'online-movie-database.p.rapidapi.com',
     },
   }

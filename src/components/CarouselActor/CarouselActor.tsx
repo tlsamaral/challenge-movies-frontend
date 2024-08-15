@@ -1,16 +1,16 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import { CarouselSection } from '@/styles'
 import type { ActorsNode } from '@/types/actors'
-import { responsiveSwiper } from '@/utils/reponsive-caroulsel'
+import { caroulselBreakpoints } from '@/utils/caroulsel-breakpoints'
 import { useRef, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import type { Swiper as SwiperType } from 'swiper'
 import { FreeMode, Pagination } from 'swiper/modules'
 import { BorderWithRadio } from '../BorderWithRadio/style'
 import PreviewActor from '../PreviewActor/PreviewActor'
-import PreviewMovie from '../PreviewMovie/PreviewMovie'
-import { CarouselMoviesSection, ControlArea, Title } from './style'
+import { ControlArea, Title } from './style'
 
 interface CarouselActorsProps {
   title: string
@@ -34,7 +34,7 @@ function CarouselActors({ title, listActors }: CarouselActorsProps) {
   }
 
   return (
-    <CarouselMoviesSection>
+    <CarouselSection>
       <ControlArea>
         <Title>
           <BorderWithRadio />
@@ -67,8 +67,6 @@ function CarouselActors({ title, listActors }: CarouselActorsProps) {
         }}
         modules={[FreeMode, Pagination]}
         className="mySwiper"
-        slidesPerView={5}
-        breakpoints={responsiveSwiper}
         onBeforeInit={(swiper) => {
           swiperRef.current = swiper
         }}
@@ -76,6 +74,7 @@ function CarouselActors({ title, listActors }: CarouselActorsProps) {
           setIsBeginning(swiper.isBeginning)
           setIsEnd(swiper.isEnd)
         }}
+        breakpoints={{ ...caroulselBreakpoints, '640': { slidesPerView: 3 } }}
       >
         {listActors?.map((actor) => (
           <SwiperSlide key={actor.node.id}>
@@ -83,7 +82,7 @@ function CarouselActors({ title, listActors }: CarouselActorsProps) {
           </SwiperSlide>
         ))}
       </Swiper>
-    </CarouselMoviesSection>
+    </CarouselSection>
   )
 }
 

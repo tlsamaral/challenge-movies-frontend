@@ -9,8 +9,7 @@ export const PersonContainer = styled.main`
 
 export const JobsContainer = styled.section`
     width: 100%;
-    max-width: 980px;
-    min-height: 60px;
+    max-width: 880px;
 `
 
 export const PersonInfoContainer = styled.section`
