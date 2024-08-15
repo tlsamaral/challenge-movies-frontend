@@ -20,7 +20,7 @@ function FeaturedMovie({ movie }: FeaturedMovieProps) {
     <BannerTopOne $bannerImg={movie.node.primaryImage.url}>
       <Main>
         <MainContent>
-          <Button>
+          <Button style={{ width: 135 }}>
             <FaFire color="#fff" />
             Em destaque{' '}
           </Button>
@@ -34,18 +34,21 @@ function FeaturedMovie({ movie }: FeaturedMovieProps) {
             <MoreInfo>
               <li>2h 8m</li>
               <li>
-                {movie.node.titleGenres.genres.length >= 3 ? (
-                  movie.node.titleGenres.genres.slice(0, 3).map((genre) => genre.genre.text).join(', ') + '...'
-                ) : (
-                  movie.node.titleGenres.genres.map((genre) => genre.genre.text)
-                )}
+                {movie.node.titleGenres.genres.length >= 3
+                  ? movie.node.titleGenres.genres
+                      .slice(0, 3)
+                      .map((genre) => genre.genre.text)
+                      .join(', ') + '...'
+                  : movie.node.titleGenres.genres.map(
+                      (genre) => genre.genre.text,
+                    )}
               </li>
               <li>{movie.node.releaseYear.year}</li>
             </MoreInfo>
           </InfoSection>
           <Description>{movie.node.plot.plotText.plainText}</Description>
         </MainContent>
-        <Button>
+        <Button style={{ width: 164 }}>
           Assistir ao Trailer <FaPlay color="#fff" />
         </Button>
       </Main>

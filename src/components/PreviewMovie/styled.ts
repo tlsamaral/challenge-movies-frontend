@@ -10,7 +10,6 @@ export const PreviewMovie = styled.article<PreviewMovieProps>`
     padding: 12px;
     position: relative;
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), ${(props) => `url(${props?.$bannerImg})`};
-    
     background-repeat: no-repeat;
     background-size: cover;
 

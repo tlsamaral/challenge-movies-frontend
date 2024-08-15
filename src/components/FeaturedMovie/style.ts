@@ -4,7 +4,6 @@ interface BannerTopOneProps {
   $bannerImg?: string
 }
 export const BannerTopOne = styled.div<BannerTopOneProps>`
-      width: 1000px;
       height: 826px;
       border-radius: 24px;
       background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), ${(props) => `url(${props?.$bannerImg})`};
@@ -14,11 +13,25 @@ export const BannerTopOne = styled.div<BannerTopOneProps>`
       display: flex;
       flex-direction: column-reverse;
       padding: 48px;
+      position: relative;
+
+      @media (min-width: 1200px) {
+        width: 1000px;
+      }
+
+      @media (max-width: 670px) {
+        height: 284px;
+        padding: 12px;
+      }
   `
 
 export const Title = styled.h2`
     font-size: 40px;
     color: #eee;
+
+    @media (max-width: 670px) {
+        font-size: 24px;
+    }
 `
 
 export const Rating = styled.div`
@@ -44,6 +57,10 @@ export const InfoSection = styled.section`
     :first-child {
         list-style: none;
     }
+
+    @media (max-width: 670px) {
+        display: none;
+    }
 `
 
 export const Description = styled.p`
@@ -51,6 +68,11 @@ export const Description = styled.p`
     line-height: 22.4px;
     max-width: 650px;
     color: #eee;
+
+    @media (max-width: 670px) {
+      font-size: 12px;
+      line-height: 16.8px;
+    }
 `
 
 export const MainContent = styled.main`
