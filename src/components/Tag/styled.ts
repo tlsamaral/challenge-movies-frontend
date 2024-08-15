@@ -9,4 +9,5 @@ padding: 4.5px 12px 4.5px 12px;
 border-radius: 99px;
 border: 2px solid #313131;
 margin-top: 20px;
+transition: background 150ms, color 150ms;
 `

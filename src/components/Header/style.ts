@@ -39,7 +39,11 @@ export const InputContainer = styled.article`
         padding-left: 48px;
     }
 `
-export const ConfigSettingIcon = styled.article`
+
+interface ConfigSettingIconProps {
+  countGenre: number
+}
+export const ConfigSettingIcon = styled.button<ConfigSettingIconProps>`
     height: 48px;
     width: 48px;
     border-radius: 50%;
@@ -47,6 +51,32 @@ export const ConfigSettingIcon = styled.article`
     display: flex;
     justify-content: center;
     align-items: center;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+    position: relative;
+
+    &:focus {
+      background: #313131;
+    }
+
+    &::before {
+    content: '${(props) => (props.countGenre > 0 ? props.countGenre : '')}';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: #6E6E6E; 
+    color: #eeee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    visibility: ${(props) => (props.countGenre > 0 ? 'visible' : 'hidden')};
+  }
 `
 export const SectionCenter = styled.section`
     display: flex;

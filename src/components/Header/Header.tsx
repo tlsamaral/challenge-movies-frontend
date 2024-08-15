@@ -3,11 +3,11 @@ import type {
   MoviesFilteredResponse,
 } from '@/types/movie-filtered'
 import axios from 'axios'
-import { Span } from 'next/dist/trace'
 import Image from 'next/image'
 import { type ChangeEvent, useEffect, useState } from 'react'
-import { FiSearch, FiSettings } from 'react-icons/fi'
+import { FiSearch } from 'react-icons/fi'
 import { LuSlidersHorizontal } from 'react-icons/lu'
+import ConfigCard from '../ConfigCard/ConfigCard'
 import ContentOverlay from '../ContentOverlay/ContentOverlay'
 import SearchCard from '../SearchCard/SearchCard'
 import {
@@ -21,13 +21,20 @@ import {
   TextResult,
 } from './style'
 
-function Header() {
+export default function Header() {
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [setupCard, setSetupCard] = useState(false)
   const [search, setSearch] = useState('')
   const [moviesFiltered, setMoviesFiltered] = useState<MoviesFiltered[]>([])
+  const [countGenre, setCountGenre] = useState(0)
 
   useEffect(() => {
     const getData = async () => {
+      if (search === '') {
+        setMoviesFiltered([])
+        return
+      }
+
       const options = {
         method: 'GET',
         url: 'https://online-movie-database.p.rapidapi.com/auto-complete',
@@ -49,15 +56,16 @@ function Header() {
   }, [search])
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearch(event.target.value)
-    setModalIsOpen(true)
-
-    if (event.target.value === '') {
-      setModalIsOpen(false)
-    } else {
-      setModalIsOpen(true)
-    }
+    const value = event.target.value
+    setSearch(value)
+    setModalIsOpen(value !== '')
   }
+
+  const handleSetup = () => {
+    setSetupCard((prev) => !prev)
+    setModalIsOpen((prev) => !prev)
+  }
+
   return (
     <HeaderContainer>
       <section>
@@ -73,26 +81,35 @@ function Header() {
             placeholder="Pesquisar"
             value={search}
             onChange={handleInputChange}
-            // onBlur={() => setModalIsOpen(false)}
+            onBlur={() => setModalIsOpen(false)}
           />
         </InputContainer>
-        <ConfigSettingIcon>
-          <LuSlidersHorizontal color="#fff" />
+        <ConfigSettingIcon countGenre={countGenre} onClick={handleSetup}>
+          <LuSlidersHorizontal color="#fff" size={18} />
         </ConfigSettingIcon>
         <ModalOverlay isOpen={modalIsOpen}>
           <ContentOverlay>
-            <TextResult>Resultados</TextResult>
-            <SearchCardWrapper>
-              {moviesFiltered?.length <= 0 && <Text>Carregando filmes..</Text>}
-              {moviesFiltered?.map((movie) => (
-                <SearchCard key={movie.id} movie={movie} />
-              ))}
-            </SearchCardWrapper>
+            {setupCard ? (
+              <>
+                <ConfigCard setCount={setCountGenre} />
+              </>
+            ) : (
+              <>
+                <TextResult>Resultados</TextResult>
+                <SearchCardWrapper>
+                  {moviesFiltered.length === 0 ? (
+                    <Text>Carregando filmes...</Text>
+                  ) : (
+                    moviesFiltered.map((movie) => (
+                      <SearchCard key={movie.id} movie={movie} />
+                    ))
+                  )}
+                </SearchCardWrapper>
+              </>
+            )}
           </ContentOverlay>
         </ModalOverlay>
       </SectionCenter>
     </HeaderContainer>
   )
 }
-
-export default Header
