@@ -26,7 +26,7 @@ export const PreviewMovie = styled.article<PreviewMovieProps>`
         width: 200px;
     }
     @media (max-width: 370px) {
-        width: 166px;
+        width: 150px;
     }
 `
 
