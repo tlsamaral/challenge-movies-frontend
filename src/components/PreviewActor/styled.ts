@@ -25,8 +25,11 @@ export const PreviewActor = styled.article<PreviewActorProps>`
     @media (max-width: 470px) {
         width: 200px;
     }
-    @media (max-width: 370px) {
-        width: 150px;
+    @media (max-width: 430px) {
+        width: 166px;
+    }
+    @media (max-width: 400px) {
+        width: 152px;
     }
 `
 
