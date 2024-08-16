@@ -4,7 +4,8 @@ import CarouselMovies from '@/components/CarouselMovies/CarouselMovies'
 import CastCrew from '@/components/CastCrew/CastCrew'
 import { InfoSection, MoreInfo, Rating } from '@/components/FeaturedMovie/style'
 import Tag from '@/components/Tag/Tag'
-import { AppContext } from '@/context/AppContext'
+// import { AppContext } from '@/context/AppContext'
+import { useStore } from '@/store/store'
 import type { MovieInfo, Movies } from '@/types/movies'
 import TransformMovies from '@/utils/transform-movie-filtered-to-info'
 import { useRouter } from 'next/router'
@@ -30,7 +31,7 @@ export default function MoviePage() {
     movies,
     isLoading,
     setIsLoading,
-  } = useContext(AppContext)
+  } = useStore()
   const [similarMovies, setSimilarMovies] = useState<MovieInfo[]>([])
   const router = useRouter()
   const movieId = router.query.id as string

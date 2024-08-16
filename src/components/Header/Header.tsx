@@ -1,4 +1,5 @@
-import { AppContext } from '@/context/AppContext'
+// import { AppContext } from '@/context/AppContext'
+import { useStore } from '@/store/store'
 import type { MovieInfo } from '@/types/movies'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
@@ -28,7 +29,7 @@ import {
 export default function Header() {
   const router = useRouter()
   const [countGenre, setCountGenre] = useState(0)
-  const { getMoviesBySearch, movies } = useContext(AppContext)
+  const { getMoviesBySearch, movies } = useStore()
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [setupCard, setSetupCard] = useState(false)
   const [search, setSearch] = useState('')

@@ -1,15 +1,16 @@
 import CarouselActors from '@/components/CarouselActor/CarouselActor'
 
-import { AppContext } from '@/context/AppContext'
+// import { AppContext } from '@/context/AppContext'
 import { fetchPopularActors } from '@/data/actors'
 import { fetchPopularMovies } from '@/data/movies'
 import type { ActorsNode } from '@/types/actors'
 import type { MovieInfo } from '@/types/movies'
 
+import { useStore } from '@/store/store'
+import { ContentMain } from '@/styles'
 import { useContext, useEffect } from 'react'
 import CarouselMovies from '../components/CarouselMovies/CarouselMovies'
 import FirstComponent from '../components/FirstComponent/FirstComponent'
-import { ContentMain } from '@/styles'
 
 interface HomeProps {
   initialMovies: MovieInfo[] | null
@@ -18,9 +19,10 @@ interface HomeProps {
 
 export default function Home({ initialMovies, initialActors }: HomeProps) {
   const { movies, actors, setMovies, setActors, isLoading, setIsLoading } =
-    useContext(AppContext)
+    useStore()
 
   useEffect(() => {
+    setIsLoading(true)
     const fetchData = async () => {
       if (!movies || movies.length === 0) {
         const fetchedMovies = initialMovies || (await fetchPopularMovies())
@@ -31,7 +33,7 @@ export default function Home({ initialMovies, initialActors }: HomeProps) {
         const fetchedActors = initialActors || (await fetchPopularActors())
         setActors(fetchedActors)
       }
-      console.log('on fetch')
+
       setIsLoading(false)
     }
 

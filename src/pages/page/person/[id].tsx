@@ -1,5 +1,5 @@
 import BorderWithRadio from '@/components/BorderWithRadio/BorderWithRadio'
-import { AppContext } from '@/context/AppContext'
+// import { AppContext } from '@/context/AppContext'
 import { fetchJobsByCelebritie } from '@/data/jobs'
 import {
   DivButtons,
@@ -28,12 +28,13 @@ import 'swiper/css/grid'
 import 'swiper/css/pagination'
 import JobCard from '@/components/JobCard/JobCard'
 import PaginationButtons from '@/components/PaginationButtons/PaginationButtons'
+import { useStore } from '@/store/store'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import type { Swiper as SwiperType } from 'swiper'
 import { Grid, Pagination } from 'swiper/modules'
 
 export default function PersonPage() {
-  const { isLoading, setIsLoading } = useContext(AppContext)
+  const { isLoading, setIsLoading } = useStore()
   const [jobs, setJobs] = useState<CelebriteName[]>([])
   const [itemsPerPage, setItemsPerPage] = useState(15) // Estado para rastrear a quantidade de itens por página
   const swiperRef = useRef<SwiperType | null>(null)
