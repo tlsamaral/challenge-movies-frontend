@@ -1,4 +1,7 @@
 export const caroulselBreakpoints = {
+  340: {
+    slidesPerView: 2,
+  },
   440: {
     slidesPerView: 2,
   },

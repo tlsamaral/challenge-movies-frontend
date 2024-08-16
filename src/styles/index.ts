@@ -4,6 +4,7 @@ export const ContainerApp = styled.div`
     max-width: 1450px;
     width: 100%;
     margin: 0 auto;
+    overflow: auto hidden;
 `
 
 export const ContentMain = styled.main`

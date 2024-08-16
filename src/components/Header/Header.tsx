@@ -81,7 +81,7 @@ export default function Header() {
   const handleNavegate = (id: string) => {
     setModalIsOpen(false)
     setSearch('')
-    console.log(id)
+
     router.push(`/page/movie/${id}`)
   }
 

@@ -5,7 +5,7 @@ import { CarouselSection } from '@/styles'
 import type { MovieInfo } from '@/types/movies'
 import { caroulselBreakpoints } from '@/utils/caroulsel-breakpoints'
 import { useRef, useState } from 'react'
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
+
 import type { Swiper as SwiperType } from 'swiper'
 import { FreeMode, Pagination } from 'swiper/modules'
 import { BorderWithRadio } from '../BorderWithRadio/style'

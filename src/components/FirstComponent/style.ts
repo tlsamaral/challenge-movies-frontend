@@ -15,6 +15,7 @@ export const PreviewMovieWrapper = styled.section`
     flex-direction: column;
     gap: 12px 0; 
     width: 380px; 
+    
     @media (max-width: 820px) {
         width: 100%;
     }
@@ -24,13 +25,6 @@ export const SetupContent = styled.div`
     width: 100%;
     display: flex;
     justify-content: space-between;
-
-    button {
-        padding: 4px;
-        background: transparent;
-        margin-left: 12px;
-        cursor: pointer;
-    }
 `
 
 export const ContentPreviewList = styled.div`

@@ -26,6 +26,9 @@ export const PreviewActor = styled.article<PreviewActorProps>`
     @media (max-width: 470px) {
         width: 200px;
     }
+    @media (max-width: 370px) {
+        width: 166px;
+    }
 `
 
 export const PreviewArea = styled.div`

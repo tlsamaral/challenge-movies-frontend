@@ -9,6 +9,8 @@ import { useEffect, useRef, useState } from 'react'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import type { Swiper as SwiperType } from 'swiper'
 import { FreeMode, Pagination } from 'swiper/modules'
+import PaginationButtons from '../PaginationButtons/PaginationButtons'
+import MovieSlides from './MovieSlides'
 import {
   ContentPreviewList,
   InitialContainer,
@@ -24,21 +26,6 @@ type FirsComponentProps = {
 
 function FirstComponent({ mainMovie, otherMovies }: FirsComponentProps) {
   const [isMobile, setIsMobile] = useState(false)
-  const swiperRef = useRef<SwiperType | null>(null)
-  const [isBeginning, setIsBeginning] = useState(true)
-  const [isEnd, setIsEnd] = useState(false)
-
-  function prevSlide() {
-    if (swiperRef.current) {
-      swiperRef.current.slidePrev()
-    }
-  }
-
-  function nextSlide() {
-    if (swiperRef.current) {
-      swiperRef.current.slideNext()
-    }
-  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -54,61 +41,19 @@ function FirstComponent({ mainMovie, otherMovies }: FirsComponentProps) {
     <InitialContainer>
       <FeaturedMovie movie={mainMovie} />
       <PreviewMovieWrapper>
-        <SetupContent>
-          <Title>
-            <BorderWithRadio /> Destaques também
-          </Title>
-          {isMobile && (
-            <div>
-              <button
-                type="button"
-                onClick={prevSlide}
-                disabled={isBeginning}
-                style={{ opacity: isBeginning ? 0.5 : 1 }}
-              >
-                <FaChevronLeft size={20} color="#eee" />
-              </button>
-              <button
-                type="button"
-                onClick={nextSlide}
-                disabled={isEnd}
-                style={{ opacity: isEnd ? 0.5 : 1 }}
-              >
-                <FaChevronRight size={20} color="#eee" />
-              </button>
-            </div>
-          )}
-        </SetupContent>
         {isMobile ? (
-          <Swiper
-            spaceBetween={8}
-            freeMode={true}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[FreeMode, Pagination]}
-            className="mySwiper"
-            onBeforeInit={(swiper) => {
-              swiperRef.current = swiper
-            }}
-            onSlideChange={(swiper) => {
-              setIsBeginning(swiper.isBeginning)
-              setIsEnd(swiper.isEnd)
-            }}
-            breakpoints={caroulselBreakpoints}
-          >
-            {otherMovies.map((movie) => (
-              <SwiperSlide key={movie.node.id}>
-                <PreviewMovie movie={movie} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          <MovieSlides movies={otherMovies} />
         ) : (
-          <ContentPreviewList>
-            {otherMovies.map((movie) => (
-              <PreviewMovie key={movie.node.id} movie={movie} />
-            ))}
-          </ContentPreviewList>
+          <>
+            <Title>
+              <BorderWithRadio /> Destaques também
+            </Title>
+            <ContentPreviewList>
+              {otherMovies.map((movie) => (
+                <PreviewMovie key={movie.node.id} movie={movie} />
+              ))}
+            </ContentPreviewList>
+          </>
         )}
       </PreviewMovieWrapper>
     </InitialContainer>
