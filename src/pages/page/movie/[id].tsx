@@ -53,6 +53,10 @@ export default function MoviePage() {
     const fetchData = async () => {
       try {
         handleSelectedMovie(movieId)
+        if (!selectedMovie) {
+          router.push('/')
+          return
+        }
         // Por falta de informações desisti dessa ideia, ia ficar muito legal porém a versão gratuita não oferece muitas possibilidades :/
         // if (titleText) {
         //   const similars = await getMoviesBySearch(titleText)
@@ -72,6 +76,10 @@ export default function MoviePage() {
     }
 
     fetchData()
+    return () => {
+      setSimilarMovies([])
+      handleSelectedMovie('')
+    }
   }, [movieId, titleText, handleSelectedMovie, getMoviesBySearch])
 
   return (

@@ -53,9 +53,6 @@ function CarouselActors({ title, listActors }: CarouselActorsProps) {
       <Swiper
         spaceBetween={8}
         freeMode={true}
-        pagination={{
-          clickable: true,
-        }}
         modules={[FreeMode, Pagination]}
         className="mySwiper"
         onBeforeInit={(swiper) => {

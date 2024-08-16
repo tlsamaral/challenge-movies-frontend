@@ -9,9 +9,9 @@ import { useRef, useState } from 'react'
 import type { Swiper as SwiperType } from 'swiper'
 import { FreeMode, Pagination } from 'swiper/modules'
 import { BorderWithRadio } from '../BorderWithRadio/style'
+import PaginationButtons from '../PaginationButtons/PaginationButtons'
 import PreviewMovie from '../PreviewMovie/PreviewMovie'
 import { ControlArea, Title } from './style'
-import PaginationButtons from '../PaginationButtons/PaginationButtons'
 
 interface CarouselMoviesProps {
   title: string
@@ -53,9 +53,6 @@ function CarouselMovies({ title, listMovies }: CarouselMoviesProps) {
       <Swiper
         spaceBetween={8}
         freeMode={true}
-        pagination={{
-          clickable: true,
-        }}
         modules={[FreeMode, Pagination]}
         className="mySwiper"
         onBeforeInit={(swiper) => {

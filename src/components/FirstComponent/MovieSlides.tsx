@@ -50,7 +50,7 @@ export default function MovieSlides({ movies }: MovieSlideProps) {
         <Swiper
           spaceBetween={8}
           slidesPerView={'auto'}
-          modules={[FreeMode, Pagination]}
+          modules={[FreeMode]}
           className="mySwiper"
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper

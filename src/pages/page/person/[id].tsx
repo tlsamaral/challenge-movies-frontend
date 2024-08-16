@@ -36,7 +36,7 @@ import { Grid, Pagination } from 'swiper/modules'
 export default function PersonPage() {
   const { isLoading, setIsLoading } = useStore()
   const [jobs, setJobs] = useState<CelebriteName[]>([])
-  const [itemsPerPage, setItemsPerPage] = useState(15) // Estado para rastrear a quantidade de itens por página
+  const [itemsPerPage, setItemsPerPage] = useState(15)
   const swiperRef = useRef<SwiperType | null>(null)
   const [isBeginning, setIsBeginning] = useState(true)
   const [isEnd, setIsEnd] = useState(false)
@@ -136,6 +136,18 @@ export default function PersonPage() {
               setIsEnd(swiper.isEnd)
             }}
             breakpoints={{
+              320: {
+                slidesPerView: 1,
+                grid: {
+                  rows: 3,
+                },
+              },
+              420: {
+                slidesPerView: 1,
+                grid: {
+                  rows: 3,
+                },
+              },
               468: {
                 slidesPerView: 1,
                 grid: {
