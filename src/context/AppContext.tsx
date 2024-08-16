@@ -54,7 +54,7 @@ function AppProviderComponent({ children }: AppProviderProps) {
       url: 'https://online-movie-database.p.rapidapi.com/auto-complete',
       params: { q: search },
       headers: {
-        'x-rapidapi-key': '575c925fb8mshca0b3947edf1ae3p1447e2jsn2c38e4393425',
+        'x-rapidapi-key': '502d8b37b6msh4dc953486e7be00p112218jsn062fbe360556',
         'x-rapidapi-host': 'online-movie-database.p.rapidapi.com',
       },
     }

@@ -6,6 +6,7 @@ import { InfoSection, MoreInfo, Rating } from '@/components/FeaturedMovie/style'
 import Tag from '@/components/Tag/Tag'
 import { AppContext } from '@/context/AppContext'
 import type { MovieInfo } from '@/types/movies'
+import TransformMovies from '@/utils/transform-movie-filtered-to-info'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
 import { FaPlay, FaStar } from 'react-icons/fa'
@@ -42,30 +43,6 @@ export default function MoviePage() {
 
   const titleText = selectedMovie?.node.titleText.text.split(' ')[0]
 
-  function getSimilarMovies(
-    selectedMovie: MovieInfo,
-    movies: MovieInfo[],
-  ): MovieInfo[] {
-    if (!selectedMovie) return []
-
-    const normalizeText = (text: string) => text.toLowerCase().trim()
-
-    const selectedTitle = normalizeText(selectedMovie.node.titleText.text)
-    const selectedPlot = normalizeText(
-      selectedMovie.node.plot.plotText.plainText,
-    )
-
-    return movies.filter((movie) => {
-      const titleMatches = normalizeText(movie.node.titleText.text).includes(
-        selectedTitle,
-      )
-      const plotMatches = normalizeText(
-        movie.node.plot.plotText.plainText,
-      ).includes(selectedPlot)
-      return titleMatches || plotMatches
-    })
-  }
-
   useEffect(() => {
     if (!movieId) {
       router.push('/')
@@ -76,8 +53,9 @@ export default function MoviePage() {
       try {
         handleSelectedMovie(movieId)
         if (titleText) {
-          const similars = getSimilarMovies(selectedMovie, movies)
-          setSimilarMovies(similars)
+          const similars = await getMoviesBySearch(titleText)
+          const filteredToMovieInfo = TransformMovies(similars)
+          setSimilarMovies(filteredToMovieInfo)
         }
       } catch (error) {
         console.error('Error fetching data:', error)

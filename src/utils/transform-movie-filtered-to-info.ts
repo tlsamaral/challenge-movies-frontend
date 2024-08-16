@@ -1,15 +1,26 @@
-import { MoviesFiltered } from "@/types/movie-filtered"
-import { MovieInfo } from "@/types/movies"
+import type { MoviesFiltered } from '@/types/movie-filtered'
+import type { MovieInfo } from '@/types/movies'
 
 export default function TransformMovies(moviesFiltered: MoviesFiltered[]) {
-    const movies = [] as MovieInfo[]
-    moviesFiltered.map((movieFiltered) => {
-        return {
-            node: {
-                 id: movieFiltered.id,
-                 
-            }
-            
-        } as MovieInfo
-    })
+  function randomRanking(min = 6, max = 10) {
+    return Number((Math.random() * (max - min) + min).toFixed(2))
+  }
+  const movies = moviesFiltered.map((movieFiltered, i) => {
+    return {
+      node: {
+        id: movieFiltered.id,
+        titleText: {
+          text: movieFiltered.l,
+        },
+        primaryImage: {
+          url: movieFiltered.i.imageUrl,
+        },
+        ratingsSummary: {
+          aggregateRating: randomRanking(),
+        },
+      },
+    } as MovieInfo
+  })
+
+  return movies
 }
