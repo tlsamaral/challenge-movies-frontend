@@ -24,21 +24,49 @@ import { useContext, useEffect, useRef, useState } from 'react'
 
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
-import 'swiper/css/navigation'
+import 'swiper/css/grid'
 import 'swiper/css/pagination'
 import JobCard from '@/components/JobCard/JobCard'
+import PaginationButtons from '@/components/PaginationButtons/PaginationButtons'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 import type { Swiper as SwiperType } from 'swiper'
-import { Grid, Navigation, Pagination } from 'swiper/modules'
+import { Grid, Pagination } from 'swiper/modules'
 
 export default function PersonPage() {
   const { isLoading, setIsLoading } = useContext(AppContext)
   const [jobs, setJobs] = useState<CelebriteName[]>([])
+  const [itemsPerPage, setItemsPerPage] = useState(15) // Estado para rastrear a quantidade de itens por página
   const swiperRef = useRef<SwiperType | null>(null)
   const [isBeginning, setIsBeginning] = useState(true)
   const [isEnd, setIsEnd] = useState(false)
   const router = useRouter()
   const id = router.query.id as string
+
+  const [currentPage, setCurrentPage] = useState(1)
+  useEffect(() => {
+    if (swiperRef.current) {
+      const newPage =
+        Math.floor((swiperRef.current.realIndex || 0) / itemsPerPage) + 1
+      setCurrentPage(newPage)
+    }
+  }, [swiperRef.current?.realIndex, itemsPerPage, jobs])
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (swiperRef.current) {
+        swiperRef.current.update()
+        const slidesPerView = swiperRef.current.params.slidesPerView as number
+        const rows = swiperRef.current.params.grid?.rows || 1
+        setItemsPerPage(slidesPerView * rows)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   useEffect(() => {
     if (!id) {
@@ -60,6 +88,14 @@ export default function PersonPage() {
 
     getData()
   }, [id, router, setIsLoading])
+
+  useEffect(() => {
+    if (swiperRef.current) {
+      const slidesPerView = swiperRef.current.params.slidesPerView as number
+      const rows = swiperRef.current.params.grid?.rows || 1
+      setItemsPerPage(slidesPerView * rows)
+    }
+  }, [jobs])
 
   function prevSlide() {
     if (swiperRef.current) {
@@ -87,16 +123,48 @@ export default function PersonPage() {
             slidesPerView={3}
             grid={{
               rows: 5,
+              fill: 'row',
             }}
-            spaceBetween={30}
-            modules={[Grid, Pagination, Navigation]}
-            className="mySwiper2"
+            spaceBetween={12}
+            modules={[Grid, Pagination]}
             onBeforeInit={(swiper) => {
               swiperRef.current = swiper
             }}
             onSlideChange={(swiper) => {
               setIsBeginning(swiper.isBeginning)
               setIsEnd(swiper.isEnd)
+            }}
+            breakpoints={{
+              468: {
+                slidesPerView: 1,
+                grid: {
+                  rows: 3,
+                },
+              },
+              640: {
+                slidesPerView: 2,
+                grid: {
+                  rows: 3,
+                },
+              },
+              768: {
+                slidesPerView: 2,
+                grid: {
+                  rows: 5,
+                },
+              },
+              1250: {
+                slidesPerView: 2,
+                grid: {
+                  rows: 5,
+                },
+              },
+              1500: {
+                slidesPerView: 3,
+                grid: {
+                  rows: 5,
+                },
+              },
             }}
           >
             {jobs[0].knownFor.edges.map((job, index) => (
@@ -109,31 +177,15 @@ export default function PersonPage() {
         <Separator />
         <DivButtons>
           <span>
-            {(swiperRef.current?.activeIndex || 0) + 1} de{' '}
-            {Math.ceil(jobs[0].knownFor.edges.length / 9)} Páginas
+            {currentPage} de{' '}
+            {Math.ceil(jobs[0].knownFor.edges.length / itemsPerPage)} Páginas
           </span>
-          <button
-            type="button"
-            onClick={prevSlide}
-            disabled={isBeginning}
-            style={{
-              opacity: isBeginning ? 0.5 : 1,
-              cursor: isBeginning ? 'not-allowed' : 'pointer',
-            }}
-          >
-            <FaChevronLeft size={20} color="#eee" />
-          </button>
-          <button
-            type="button"
-            onClick={nextSlide}
-            disabled={isEnd}
-            style={{
-              opacity: isEnd ? 0.5 : 1,
-              cursor: isEnd ? 'not-allowed' : 'pointer',
-            }}
-          >
-            <FaChevronRight size={20} color="#eee" />
-          </button>
+          <PaginationButtons
+            onPrev={prevSlide}
+            onNext={nextSlide}
+            isBeginning={isBeginning}
+            isEnd={isEnd}
+          />
         </DivButtons>
       </JobsContainer>
       <PersonInfoContainer>
