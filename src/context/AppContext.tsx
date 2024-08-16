@@ -1,4 +1,3 @@
-import type { ActorNames, Movies } from '@/pages'
 import type { ActorsNode } from '@/types/actors'
 import type {
   MoviesFiltered,
@@ -16,10 +15,10 @@ import React, {
 } from 'react'
 
 interface AppContextData {
-  movies: Movies
-  setMovies: Dispatch<SetStateAction<Movies>>
-  actors: ActorNames
-  setActors: Dispatch<SetStateAction<ActorNames>>
+  movies: MovieInfo[]
+  setMovies: Dispatch<SetStateAction<MovieInfo[]>>
+  actors: ActorsNode[]
+  setActors: Dispatch<SetStateAction<ActorsNode[]>>
   selectedMovie: MovieInfo | null
   selectedActor: ActorsNode | null
   handleSelectedMovie: (movie_id: MovieInfo['node']['id']) => void
@@ -35,8 +34,8 @@ interface AppProviderProps {
 }
 
 function AppProviderComponent({ children }: AppProviderProps) {
-  const [movies, setMovies] = useState<Movies>([])
-  const [actors, setActors] = useState<ActorNames>([])
+  const [movies, setMovies] = useState<MovieInfo[]>([])
+  const [actors, setActors] = useState<ActorsNode[]>([])
   const [selectedMovie, setSelectedMovie] = useState<MovieInfo | null>(null)
   const [selectedActor, setSelectedActor] = useState<ActorsNode | null>(null)
   const [isLoading, setIsLoading] = useState(true)

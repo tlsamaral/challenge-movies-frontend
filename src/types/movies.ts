@@ -25,7 +25,6 @@ export interface Data {
 export interface Movies {
   __typename: string
   edges: MovieInfo[]
-  pageInfo: PageInfo
 }
 
 export interface MovieInfo {

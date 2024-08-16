@@ -1,6 +1,7 @@
 import { AppContext } from '@/context/AppContext'
 import type { MovieInfo } from '@/types/movies'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import {
   type ChangeEvent,
   useContext,
@@ -23,7 +24,6 @@ import {
   Text,
   TextResult,
 } from './style'
-import { useRouter } from 'next/router'
 
 export default function Header() {
   const router = useRouter()
@@ -43,7 +43,7 @@ export default function Header() {
       movie.node.titleText.text.includes(search),
     )
     setMoviesFiltered(filteredMovies)
-  }, [search, movies])
+  }, [search])
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -80,7 +80,7 @@ export default function Header() {
   const handleNavegate = (id: string) => {
     setModalIsOpen(false)
     setSearch('')
-
+    console.log(id)
     router.push(`/page/movie/${id}`)
   }
 

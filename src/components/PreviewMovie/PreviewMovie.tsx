@@ -11,19 +11,16 @@ import {
 
 interface PreviewMovieProps {
   movie: MovieInfo
-  ratingIsVisible?: boolean
 }
-function PreviewMovie({ movie, ratingIsVisible = true }: PreviewMovieProps) {
+function PreviewMovie({ movie }: PreviewMovieProps) {
   return (
     <RouteComponent path={`/page/movie/${movie.node.id}`}>
       <PreviewMovieContainer $bannerImg={movie.node.primaryImage.url}>
         <PreviewArea>
-          {ratingIsVisible && (
-            <PreviewRating>
-              <FaStar color="#F0E635" size={20} />
-              {movie.node.ratingsSummary.aggregateRating || 5.5}
-            </PreviewRating>
-          )}
+          <PreviewRating>
+            <FaStar color="#F0E635" size={20} />
+            {movie.node.ratingsSummary.aggregateRating || 5.5}
+          </PreviewRating>
           <div>
             <Title>{movie.node.titleText.text}</Title>
             <Button>

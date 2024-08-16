@@ -5,7 +5,7 @@ import CastCrew from '@/components/CastCrew/CastCrew'
 import { InfoSection, MoreInfo, Rating } from '@/components/FeaturedMovie/style'
 import Tag from '@/components/Tag/Tag'
 import { AppContext } from '@/context/AppContext'
-import type { MovieInfo } from '@/types/movies'
+import type { MovieInfo, Movies } from '@/types/movies'
 import TransformMovies from '@/utils/transform-movie-filtered-to-info'
 import { useRouter } from 'next/router'
 import { useContext, useEffect, useState } from 'react'
@@ -52,11 +52,17 @@ export default function MoviePage() {
     const fetchData = async () => {
       try {
         handleSelectedMovie(movieId)
-        if (titleText) {
-          const similars = await getMoviesBySearch(titleText)
-          const filteredToMovieInfo = TransformMovies(similars)
-          setSimilarMovies(filteredToMovieInfo)
-        }
+        // Por falta de informações desisti dessa ideia, ia ficar muito legal porém a versão gratuita não oferece muitas possibilidades :/
+        // if (titleText) {
+        //   const similars = await getMoviesBySearch(titleText)
+        //   const filteredToMovieInfo = TransformMovies(similars)
+        //   setSimilarMovies(filteredToMovieInfo)
+
+        //   setMovies((prev) => {
+        //     return [...prev, ...filteredToMovieInfo]
+        //   })
+        // }
+        setSimilarMovies(movies.slice(0, 12))
       } catch (error) {
         console.error('Error fetching data:', error)
       } finally {

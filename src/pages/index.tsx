@@ -6,17 +6,14 @@ import { fetchPopularMovies } from '@/data/movies'
 import type { ActorsNode } from '@/types/actors'
 import type { MovieInfo } from '@/types/movies'
 
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect } from 'react'
 import CarouselMovies from '../components/CarouselMovies/CarouselMovies'
 import FirstComponent from '../components/FirstComponent/FirstComponent'
 import { ContentMain } from '@/styles'
 
-export type Movies = MovieInfo[]
-export type ActorNames = ActorsNode[]
-
 interface HomeProps {
-  initialMovies: Movies | null
-  initialActors: ActorNames | null
+  initialMovies: MovieInfo[] | null
+  initialActors: ActorsNode[] | null
 }
 
 export default function Home({ initialMovies, initialActors }: HomeProps) {

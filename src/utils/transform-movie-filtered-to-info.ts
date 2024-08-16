@@ -18,6 +18,9 @@ export default function TransformMovies(moviesFiltered: MoviesFiltered[]) {
         ratingsSummary: {
           aggregateRating: randomRanking(),
         },
+        releaseYear: {
+          year: movieFiltered.y,
+        },
       },
     } as MovieInfo
   })
