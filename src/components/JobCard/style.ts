@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const JobCardContainer = styled.article`
-    max-width: 318px;
+    width: 100%;
     padding: 4px;
     height: 100%;
     border-radius: 16px;
@@ -13,8 +13,10 @@ interface JobImageProps {
   $src: string
 }
 export const JobImage = styled.div<JobImageProps>`
-    width: 64px;
-    height: 86px;
+    min-width: 64px !important;
+    min-height: 86px !important;
+    max-width: 64px !important;
+    max-height: 86px !important;
     border-radius: 12px;
     border: 2px solid #3A3A3A;
     background-image: url(${(props: JobImageProps) => props.$src});

@@ -11,6 +11,7 @@ import { FreeMode, Pagination } from 'swiper/modules'
 import { BorderWithRadio } from '../BorderWithRadio/style'
 import PreviewMovie from '../PreviewMovie/PreviewMovie'
 import { ControlArea, Title } from './style'
+import PaginationButtons from '../PaginationButtons/PaginationButtons'
 
 interface CarouselMoviesProps {
   title: string
@@ -41,22 +42,12 @@ function CarouselMovies({ title, listMovies }: CarouselMoviesProps) {
           {title}
         </Title>
         <div>
-          <button
-            type="button"
-            onClick={prevSlide}
-            disabled={isBeginning}
-            style={{ opacity: isBeginning ? 0.5 : 1 }}
-          >
-            <FaChevronLeft size={20} color="#eee" />
-          </button>
-          <button
-            type="button"
-            onClick={nextSlide}
-            disabled={isEnd}
-            style={{ opacity: isEnd ? 0.5 : 1 }}
-          >
-            <FaChevronRight size={20} color="#eee" />
-          </button>
+          <PaginationButtons
+            onPrev={prevSlide}
+            onNext={nextSlide}
+            isBeginning={isBeginning}
+            isEnd={isEnd}
+          />
         </div>
       </ControlArea>
       <Swiper

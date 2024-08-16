@@ -8,5 +8,8 @@ export const ContainerApp = styled.div`
 
 export const ContentMain = styled.main`
     padding: 0 24px 24px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 `
 export const CarouselSection = styled.section``

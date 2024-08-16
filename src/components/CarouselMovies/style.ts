@@ -16,11 +16,4 @@ export const ControlArea = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    button {
-        padding: 4px;
-        background: transparent;
-        margin-left: 12px;
-        cursor: pointer;
-    }
 `

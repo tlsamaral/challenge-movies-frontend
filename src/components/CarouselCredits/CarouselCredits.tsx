@@ -11,6 +11,7 @@ import { BorderWithRadio } from '../BorderWithRadio/style'
 import PreviewPeople from '../PreviewPeople/PreviewPeople'
 import { ControlArea, Title } from './style'
 import { CarouselSection } from '@/styles'
+import PaginationButtons from '../PaginationButtons/PaginationButtons'
 
 interface CarouselCreditsProps {
   title: string
@@ -41,22 +42,12 @@ function CarouselCredits({ title, listPeople }: CarouselCreditsProps) {
           {title}
         </Title>
         <div>
-          <button
-            type="button"
-            onClick={prevSlide}
-            disabled={isBeginning}
-            style={{ opacity: isBeginning ? 0.5 : 1 }}
-          >
-            <FaChevronLeft size={20} color="#eee" />
-          </button>
-          <button
-            type="button"
-            onClick={nextSlide}
-            disabled={isEnd}
-            style={{ opacity: isEnd ? 0.5 : 1 }}
-          >
-            <FaChevronRight size={20} color="#eee" />
-          </button>
+          <PaginationButtons
+            onPrev={prevSlide}
+            onNext={nextSlide}
+            isBeginning={isBeginning}
+            isEnd={isEnd}
+          />
         </div>
       </ControlArea>
       <Swiper

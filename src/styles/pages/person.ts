@@ -3,13 +3,34 @@ import styled from 'styled-components'
 export const PersonContainer = styled.main`
     width: 100%;
     display: flex;
+    flex-direction: row;
     gap: 12px;
     padding: 0px 24px 24px 24px;
+
+    @media (max-width: 950px) {
+        flex-direction: column-reverse;
+        gap: 24px;
+    }
 `
 
 export const JobsContainer = styled.section`
     width: 100%;
     max-width: 880px;
+
+    @media (max-width: 1250px) {
+        max-width: 720px;
+    }
+
+    @media (max-width: 1045px) {
+        max-width: 620px;
+    }
+
+    @media (max-width: 955px) {
+        max-width: 570px;
+    }
+    @media (max-width: 950px) {
+        width: 100%;
+    }
 `
 
 export const PersonInfoContainer = styled.section`
@@ -18,6 +39,11 @@ export const PersonInfoContainer = styled.section`
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    @media (max-width: 950px) {
+        width: 100%;
+        max-width: 100%;
+    }
 `
 
 export const JobsList = styled.div`
@@ -106,11 +132,5 @@ export const DivButtons = styled.div`
     
     span {
         color: #eee;
-    }
-    button {
-        padding: 4px;
-        background: transparent;
-        margin-left: 12px;
-        cursor: pointer;
     }
 `
