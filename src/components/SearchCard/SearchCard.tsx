@@ -1,4 +1,5 @@
-import type { MoviesFiltered } from '@/types/movie-filtered'
+import type { MovieInfo } from '@/types/movies'
+
 import {
   ContainerTitle,
   Content,
@@ -7,22 +8,26 @@ import {
   Text,
   Title,
 } from './style'
-import { MovieInfo } from '@/types/movies'
 
 interface SearchCardProps {
   movie: MovieInfo
+  onClick: (id: string) => void
 }
 
-function SearchCard({ movie }: SearchCardProps) {
+function SearchCard({ movie, onClick }: SearchCardProps) {
   return (
-    <SearchCardContainer>
+    <SearchCardContainer onClick={() => onClick(movie.node.id)}>
       <Picture src={movie.node.primaryImage.url} />
       <Content>
         <ContainerTitle>
           <Title>{movie.node.titleText.text}</Title>
         </ContainerTitle>
         <Text>{movie.node.releaseYear.year}</Text>
-        <Text>{movie.node.principalCredits[0].credits.map(c => c.name.nameText.text).join(', ')}</Text>
+        <Text>
+          {movie.node.principalCredits[0].credits
+            .map((c) => c.name.nameText.text)
+            .join(', ')}
+        </Text>
       </Content>
     </SearchCardContainer>
   )

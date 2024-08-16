@@ -23,8 +23,10 @@ import {
   Text,
   TextResult,
 } from './style'
+import { useRouter } from 'next/router'
 
 export default function Header() {
+  const router = useRouter()
   const [countGenre, setCountGenre] = useState(0)
   const { getMoviesBySearch, movies } = useContext(AppContext)
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -75,6 +77,13 @@ export default function Header() {
     setModalIsOpen(true)
   }
 
+  const handleNavegate = (id: string) => {
+    setModalIsOpen(false)
+    setSearch('')
+
+    router.push(`/page/movie/${id}`)
+  }
+
   return (
     <HeaderContainer>
       <section>
@@ -113,7 +122,11 @@ export default function Header() {
                     <Text>Carregando filmes...</Text>
                   ) : (
                     moviesFiltered.map((movie) => (
-                      <SearchCard key={movie.node.id} movie={movie} />
+                      <SearchCard
+                        key={movie.node.id}
+                        movie={movie}
+                        onClick={handleNavegate}
+                      />
                     ))
                   )}
                 </SearchCardWrapper>
